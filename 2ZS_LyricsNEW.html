@@ -350,11 +350,7 @@
       document.getElementById("textLyr").textContent = data
       }
       });
-        });     
-       
-       
-        
-
+      });
       }
 
 
@@ -371,7 +367,7 @@
         //     if(!confirm("File size is "+Math.round(file.size/1024)+"kBytes! Really want to read it?")){
         //       console.log("Aborting loading file...")
         //       return
-        //     }
+        //   }
         //   }
         var reader = new FileReader();
         reader.onload = function () {
@@ -1067,14 +1063,14 @@
           //console.log(`НОТ БОЛЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length}, СЛОГОВ ${n}`)
           document.getElementById(
             "message"
-          ).textContent = `НОТ БОЛЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length}, СЛОГОВ ${n}`;
+          ).textContent = `НОТ БОЛЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
           x.style.color = "red";
         }
         if (midiNotesStart.length < n) {
           //console.log()
           document.getElementById(
             "message"
-          ).textContent = `НОТ МЕНЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length}, СЛОГОВ ${n}`;
+          ).textContent = `НОТ МЕНЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
           x.style.color = "yellow";
         }
 
@@ -1082,7 +1078,7 @@
           x.style.color = "green";
           document.getElementById(
             "message"
-          ).textContent = `КОЛИЧЕСТОВ НОТ И СЛОГОВ СОВПАДАЕТ`;
+          ).textContent = `КОЛИЧЕСТОВ НОТ И СЛОГОВ СОВПАДАЕТ: ${n-1}`;
         }
       }
 
@@ -1101,10 +1097,10 @@
             tok[2] === "notes" &&
             (text !== tok[3] || lastDetectMultine !== detectMultiLine)
           ) {
-            TestFromNotes = tok[3];
-            console.log(TestFromNotes);
+            TextFromNotes = tok[3];
+            console.log(TextFromNotes);
             console.log("notes");
-            document.getElementById("textLyr").textContent = TestFromNotes;
+            document.getElementById("textLyr").textContent = TextFromNotes;
 
             wwr_req_recur_cancel("GET/PROJEXTSTATE/2ZS_Lyrics/notes");
             var section = "notes";
@@ -1120,6 +1116,7 @@
             (text !== tok[3] || lastDetectMultine !== detectMultiLine)
           ) {
             text = tok[3];
+           
             /*if( lastDetectMultine !== detectMultiLine ) {
             lastDetectMultine = detectMultiLine;
           }*/
@@ -1127,11 +1124,12 @@
               // If no script run on use side
               div.innerHTML = initial_text;
             } else {
-              if (text === "--2ZS-NO-TEXT--") text = "";
+              if (text === "--2ZS-NO-TEXT--") {text = ""};
               // var html = text.split("|");
 
               var midiNotesStart = text.split("|");
-              // console.log(midiNotesStart)
+
+              //console.log('midiNotesStart',midiNotesStart)
               // console.log (document.getElementById('textLyr').textContent)
 
               lyric = notesPlusSlogi(
