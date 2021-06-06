@@ -511,7 +511,7 @@
         .querySelector("#getLyric")
         .addEventListener("click", function () {
           let textL = allLyric;
-          console.log("textL", textL);
+          // console.log("textL", textL);
           textL = textL.replaceAll("à", "а");
           textL = textL.replaceAll("á", "б");
           textL = textL.replaceAll("â", "в");
@@ -610,7 +610,7 @@
             textL = textL.slice(1);
           }
 
-          console.log("textL2", textL);
+          // console.log("textL2", textL);
           document.getElementById("textLyr").textContent = textL;
         });
 
