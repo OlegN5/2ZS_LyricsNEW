@@ -129,9 +129,10 @@
     </div>
 
     <div id="playstate"></div>
-
+    
     <script src="main.js"></script>
 
+    <script src="bundle.js"></script>
     <script>
       (function (root, factory) {
         "use strict";
@@ -507,11 +508,61 @@
         });
       }
 
+      //utf8 to 1251 converter (1 byte format, RU/EN support only + any other symbols) by drgluck
+function utf8_decode (aa) {
+    var bb = '', c = 0;
+    for (var i = 0; i < aa.length; i++) {
+        c = aa.charCodeAt(i);
+        if (c > 127) {
+            if (c > 1024) {
+                if (c == 1025) {
+                    c = 1016;
+                } else if (c == 1105) {
+                    c = 1032;
+                }
+                bb += String.fromCharCode(c - 848);
+            }
+        } else {
+            bb += aa.charAt(i);
+        }
+    }
+    return bb;
+} 
+
+
+
+
+
       document
         .querySelector("#getLyric")
         .addEventListener("click", function () {
           let textL = allLyric;
+          // let LyricTxt
+
+    // LyricTxt=LyricTxt.encode('cp1251')
+    // # print('*******************')
+    // # print(LyricTxt)
+    // LyricTxt=LyricTxt.decode('latin-1')
+    // # print('*******************')
+    // # print(LyricTxt)
+    // # print('*******************')
+
+
+
+    // # print (LyricTxt)
+          // LyricTxt = allLyric.encode(encoding = 'utf-8')
+          // LyricTxt = allLyric.decode("windows-1251")
+
+          // let encoder = new TextEncoder().encode(allLyric);
+          // console.log("allLyric", encoder);
+          // LyricTxt = new TextDecoder('cp1251').decode(encoder);
+          // console.log("LyricTxt", LyricTxt);
           // console.log("textL", textL);
+
+          // textL2  = conv(textL)
+
+
+          // console.log("textL2", textL2);
           textL = textL.replaceAll("à", "а");
           textL = textL.replaceAll("á", "б");
           textL = textL.replaceAll("â", "в");
@@ -593,8 +644,6 @@
           textL = textL.replaceAll("ĳ", "Ді");
           textL = textL.replaceAll("˸", "Лё");
           textL = textL.replaceAll("ճ", "Хi");
-          
-          
           
 
           textL = textL.replaceAll(` | |`, `\n`);
