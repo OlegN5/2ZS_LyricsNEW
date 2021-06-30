@@ -132,7 +132,7 @@
     
     <script src="main.js"></script>
 
-    <script src="bundle.js"></script>
+    <!-- <script src="bundle.js"></script> -->
     <script>
       (function (root, factory) {
         "use strict";
@@ -537,9 +537,9 @@ function utf8_decode (aa) {
         .querySelector("#getLyric")
         .addEventListener("click", function () {
           let textL = allLyric;
-<<<<<<< HEAD
+
           console.log("textL", textL);
-=======
+
           // let LyricTxt
 
     // LyricTxt=LyricTxt.encode('cp1251')
@@ -566,7 +566,7 @@ function utf8_decode (aa) {
 
 
           // console.log("textL2", textL2);
->>>>>>> ceccd8c587fee99bf7f34bf41c9e1f8378c7c522
+
           textL = textL.replaceAll("à", "а");
           textL = textL.replaceAll("á", "б");
           textL = textL.replaceAll("â", "в");
