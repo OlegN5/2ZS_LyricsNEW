@@ -730,7 +730,7 @@ function utf8_decode (aa) {
       document.querySelector("#start").addEventListener("click", function () {
         let $el = document.getElementById("textSite").textContent;
 
-        vowels = "уеёэоаыяиюУЕЁЭОАЫЯИЮ";
+        vowels = "iуеёэоаыяиюУЕЁЭОАЫЯИЮ";
 
         //.split(',')
         const charsDelete = `,.?!`; //document.querySelector('#charsDelete').value
@@ -907,7 +907,7 @@ function utf8_decode (aa) {
             words = line.split(` `);
             syllables = words.map((word) => {
               //return word.split(new RegExp(`(?=[${vowels}])`, "g"))
-              return word.split(/[уеёэоаыяиюУЕЁЭОАЫЯИЮ]/g);
+              return word.split(/[iуеёэоаыяиюУЕЁЭОАЫЯИЮ]/g);
             });
             // console.log(syllables)
           });
@@ -918,7 +918,7 @@ function utf8_decode (aa) {
         $el = $el.replaceAll("-", "-=");
         $el = $el.replaceAll("==", "=");
         document.querySelector("#textLyr").textContent = $el;
-        a = "у,е,ё,э,о,а,ы,я,и,ю,У,Е,Ё,Э,О,А,Ы,Я,И,Ю".split(",");
+        a = "i,у,е,ё,э,о,а,ы,я,и,ю,У,Е,Ё,Э,О,А,Ы,Я,И,Ю".split(",");
 
         //!!!!!!!!!!!!!!!!!!!!!!
         //debugger
