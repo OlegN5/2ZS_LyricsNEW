@@ -772,6 +772,8 @@ function utf8_decode (aa) {
         $el = $el.replace(new RegExp(`[${charsDelete}]`, "g"), "");
 
         $el = $el.replaceAll(" - ", " ");
+        $el = $el.replaceAll(" – ", " ");
+        $el = $el.replaceAll("–", " "); 
         //$el = $el.replaceAll('_'," ")
         $el = $el.replaceAll(" в ", " в_");
         $el = $el.replaceAll("В ", "В_");
