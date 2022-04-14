@@ -790,6 +790,10 @@ function utf8_decode (aa) {
         $el = $el.replaceAll(" ж ", "_ж ");
         $el = $el.replaceAll(";", "");
         $el = $el.replaceAll(":", "");
+        $el = $el.replaceAll("—", "");
+        $el = $el.replaceAll(" -", "");
+        $el = $el.replaceAll(" - ", "");
+        $el = $el.replaceAll("- ", "");
         // $el = $el.replaceAll('"', "");
 
         let posSpaces = [];
