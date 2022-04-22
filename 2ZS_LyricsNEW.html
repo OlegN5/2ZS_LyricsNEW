@@ -65,6 +65,19 @@
       a {
         color: #ea8400;
       }
+
+      #lyrics {
+
+      }
+
+      #textLyr {
+
+      }
+      #textSite {
+        color: white;
+
+
+      }
     </style>
   </head>
 
@@ -340,6 +353,15 @@
     </script>
 
     <script>
+      document.querySelector('#textSite').addEventListener("paste", function(e) {
+        e.preventDefault();
+        var text = e.clipboardData.getData("text/plain");
+        document.execCommand("insertHTML", false, text);
+});
+
+
+
+
 
       function readSuper() {
 
@@ -744,6 +766,9 @@ function utf8_decode (aa) {
         //$el = document.querySelector('#editor').textContent
         $el = $el.replaceAll(`Припев:\n`, "");
         $el = $el.replaceAll(`припев:\n`, "");
+        $el = $el.replaceAll(`Припев:`, "");
+        $el = $el.replaceAll(`Пред припев:`, "");
+        $el = $el.replaceAll(`\n\n\n`, "\n\n");
         $el = $el.replace(/          /g, " ");
         $el = $el.replace(/         /g, " ");
         $el = $el.replace(/        /g, " ");
@@ -780,7 +805,7 @@ function utf8_decode (aa) {
         $el = $el.replaceAll(" - ", " ");
         $el = $el.replaceAll(" – ", " ");
         $el = $el.replaceAll("–", " "); 
-        //$el = $el.replaceAll('_'," ")
+        
         $el = $el.replaceAll(" в ", " в_");
         $el = $el.replaceAll("В ", "В_");
         $el = $el.replaceAll(" с ", " с_");
@@ -790,6 +815,7 @@ function utf8_decode (aa) {
         $el = $el.replaceAll(" ж ", "_ж ");
         $el = $el.replaceAll(";", "");
         $el = $el.replaceAll(":", "");
+        $el = $el.replaceAll('…',"")
         $el = $el.replaceAll("—", "");
         $el = $el.replaceAll(" -", "");
         $el = $el.replaceAll(" - ", "");
