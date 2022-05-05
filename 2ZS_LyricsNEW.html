@@ -65,16 +65,25 @@
       a {
         color: #ea8400;
       }
+      #app {
+        width: 890px;
+        background: rgb(19, 14, 63);
+        
+
+      }
 
       #lyrics {
+        width: 290px
 
       }
 
       #textLyr {
+        width: 290px
 
       }
       #textSite {
         color: white;
+        width: 290px
 
 
       }
@@ -123,6 +132,9 @@
       </button>
       <button id="downloadLyr" type="button" class="btn btn-primary btn-lg">
         downloadTxt
+      </button>
+      <button id="pasteLyr" type="button" class="btn btn-primary btn-lg">
+        pasteLyric
       </button>
       <br />
       <p id="path"></p>
@@ -418,6 +430,19 @@
         //alert(`Last modified: ${file.lastModified}`); // например, 1552830408824
         document.getElementById("textLyr").innerHTML = textLyr;
       }
+
+      
+
+      document.querySelector("#pasteLyr").addEventListener("click", function () {
+          navigator.clipboard
+                    .readText()
+                    .then(
+                        cliptext =>
+                            (document.getElementById('textSite').textContent = cliptext),
+                            err => console.log(err)
+                    );
+      
+      })
 
       
       document.querySelector("#lyr2Midi").addEventListener("click", function () {
@@ -758,10 +783,10 @@ function utf8_decode (aa) {
       document.querySelector("#start").addEventListener("click", function () {
         let $el = document.getElementById("textSite").textContent;
 
-        vowels = "iіїєуеёэоаыяиюIУЕЁЭОАЫЯИЮ";
+        vowels = "ѳYyUuOoAaJjEeiiіїєуеёэоаыяиюIУЕЁЭОАЫЯИЮ";// ZADAJUTSJA ZDES!!!
 
         //.split(',')
-        const charsDelete = `,.?!`; //document.querySelector('#charsDelete').value
+        const charsDelete = `,.?!()`; //document.querySelector('#charsDelete').value
 
         //$el = document.querySelector('#editor').textContent
         $el = $el.replaceAll(`Припев:\n`, "");
@@ -945,7 +970,7 @@ function utf8_decode (aa) {
             words = line.split(` `);
             syllables = words.map((word) => {
               //return word.split(new RegExp(`(?=[${vowels}])`, "g"))
-              return word.split(/[iіїєуеёэоаыяиюIУЕЁЭОАЫЯИЮ]/g);
+              return word.split(/[ѳYyUuOoAaJjEeiіїєуеёэоаыяиюIУЕЁЭОАЫЯИЮ]/g);
             });
             // console.log(syllables)
           });
@@ -956,7 +981,7 @@ function utf8_decode (aa) {
         $el = $el.replaceAll("-", "-=");
         $el = $el.replaceAll("==", "=");
         document.querySelector("#textLyr").textContent = $el;
-        a = "і,ї,є,i,у,е,ё,э,о,а,ы,я,и,ю,I,У,Е,Ё,Э,О,А,Ы,Я,И,Ю".split(",");
+        a = "ѳ,Y,y,U,u,O,o,A,a,J,j,E,e,і,ї,є,i,у,е,ё,э,о,а,ы,я,и,ю,I,У,Е,Ё,Э,О,А,Ы,Я,И,Ю".split(",");
 
         //!!!!!!!!!!!!!!!!!!!!!!
         //debugger
@@ -992,6 +1017,19 @@ function utf8_decode (aa) {
 
         document.getElementById("textLyr").textContent = $el;
       });
+
+
+      $("#textLyr").keydown(function(e) {
+        if (e.keyCode == 13)
+        {
+          //not work
+          console.log('enter')
+          e.shiftKey=true
+          e.ctrlKey=true
+         console.log(e)
+            
+        }
+      });   
 
       document
         .getElementById("textSite")
