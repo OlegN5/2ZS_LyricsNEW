@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>REAPER Lyrics Web Interface - 2ZS</title>
     <meta charset="utf-8" />
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> -->
@@ -17,1358 +18,1390 @@
 
 
     <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        background: #333333;
-        color: white;
-        font-family: sans-serif;
-      }
-      .content {
-        white-space: pre-wrap;
-        /* overflow: scroll; */
-        /* height: 600px; */
-        /* white-space:break-spaces */
-      }
-
-      .menu {
-        position: fixed; /* Фиксированное положение */
-        right: 10px; /* Расстояние от правого края окна браузера */
-        top: 30; /* Расстояние сверху */
-        padding: 2px; /* Поля вокруг текста */
-        background: #333333; /* Цвет фона */
-        border: 1px solid #333; /* Параметры рамки */
-      }
-
-      .row {
-        top: 120;
-      }
-
-      #text {
-        width: 95vw;
-        height: 1vh;
-        margin: auto;
-        text-align: center;
-      }
-
-      #playstate {
-        height: 30px;
-        width: 100%;
-        background: blue;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      a {
-        color: #ea8400;
-      }
-      #app {
-        width: 890px;
-        background: rgb(19, 14, 63);
+        * {
+            box-sizing: border-box;
+        }
         
-
-      }
-
-      #lyrics {
-        width: 290px
-
-      }
-
-      #textLyr {
-        width: 290px
-
-      }
-      #textSite {
-        color: white;
-        width: 290px
-
-
-      }
+        body {
+            background: #333333;
+            color: white;
+            font-family: sans-serif;
+        }
+        
+        .content {
+            white-space: pre-wrap;
+            /* overflow: scroll; */
+            /* height: 600px; */
+            /* white-space:break-spaces */
+        }
+        
+        .menu {
+            position: fixed;
+            /* Фиксированное положение */
+            right: 10px;
+            /* Расстояние от правого края окна браузера */
+            top: 30;
+            /* Расстояние сверху */
+            padding: 2px;
+            /* Поля вокруг текста */
+            background: #333333;
+            /* Цвет фона */
+            border: 1px solid #333;
+            /* Параметры рамки */
+        }
+        
+        .row {
+            top: 120;
+        }
+        
+        #text {
+            width: 95vw;
+            height: 1vh;
+            margin: auto;
+            text-align: center;
+        }
+        
+        #playstate {
+            height: 30px;
+            width: 100%;
+            background: blue;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        a {
+            color: #ea8400;
+        }
+        
+        #app {
+            width: 890px;
+            background: rgb(19, 14, 63);
+        }
+        
+        #lyrics {
+            width: 290px
+        }
+        
+        #textLyr {
+            width: 290px
+        }
+        
+        #textSite {
+            color: white;
+            width: 290px
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="transport">.........</div>
     <div id="text"></div>
     <!-- <div id="text" class="fittext"></div> -->
     <!-- <div id="lyrics" class ='content'>......</div>  -->
     <div class="menu">
-      <button id="start" type="button" class="btn btn-primary btn-lg">
+        <button id="start" type="button" class="btn btn-primary btn-lg">
         start
       </button>
-      <button id="copy" type="button" class="btn btn-primary btn-lg">
+        <button id="copy" type="button" class="btn btn-primary btn-lg">
         copy
       </button>
-      <button hidden id="save" type="button" class="btn btn-primary btn-lg">
+        <button hidden id="save" type="button" class="btn btn-primary btn-lg">
         Save2Notes
       </button>
-      <button hidden id="read" type="button" class="btn btn-primary btn-lg">
+        <button hidden id="read" type="button" class="btn btn-primary btn-lg">
         ReadNotes
       </button>
-      <button
-        id="getTxt"
-        type="button"
-        class="btn btn-primary btn-lg"
-        onclick="read()"
-      >
+        <button id="getTxt" type="button" class="btn btn-primary btn-lg" onclick="read()">
         loadTxt
       </button>
-      <button
-        id="getTxtSuper"
-        type="button"
-        class="btn btn-primary btn-lg"
-        onclick="readSuper()"
-      >
+        <button id="getTxtSuper" type="button" class="btn btn-primary btn-lg" onclick="readSuper()">
         loadTxtSuper
       </button>
-      <button id="getLyric" type="button" class="btn btn-primary btn-lg">
+        <button id="getLyric" type="button" class="btn btn-primary btn-lg">
         getMidiLyric
       </button>
-      <button hidden id="lyr2Midi" type="button" class="btn btn-primary btn-lg">
+        <button hidden id="lyr2Midi" type="button" class="btn btn-primary btn-lg">
         setMidiLyric
       </button>
-      <button id="downloadLyr" type="button" class="btn btn-primary btn-lg">
+        <button id="downloadLyr" type="button" class="btn btn-primary btn-lg">
         downloadTxt
       </button>
-      <button id="pasteLyr" type="button" class="btn btn-primary btn-lg">
+        <button id="pasteLyr" type="button" class="btn btn-primary btn-lg">
         pasteLyric
       </button>
-      <br />
-      <p id="path"></p>
-      <input type="file" id="file" accept=".txt" multiple/>
-      <a id="message"></a>
+        <br />
+        <p id="path"></p>
+        <input type="file" id="file" accept=".txt" multiple/>
+        <a id="message"></a>
     </div>
 
     <div id="app" class="container-fluid">
-      <div class="row">
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <div id="lyrics" class="col-4 content"></div>
-        <div id="textLyr" class="col-4 content" contenteditable="true"></div>
-        <div id="textSite" class="col-4 content" contenteditable="true">
+        <div class="row">
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <div id="lyrics" class="col-4 content"></div>
+            <div id="textLyr" class="col-4 content" contenteditable="true"></div>
+            <div id="textSite" class="col-4 content" contenteditable="true">
+            </div>
         </div>
-      </div>
     </div>
 
     <div id="playstate"></div>
-    
+
     <script src="main.js"></script>
 
     <!-- <script src="bundle.js"></script> -->
     <script>
-      (function (root, factory) {
-        "use strict";
-        if (typeof define === "function" && define.amd) {
-          define([], factory);
-        } else if (typeof exports === "object") {
-          module.exports = factory();
-        } else {
-          root.textFit = factory();
-        }
-      })(typeof global === "object" ? global : this, function () {
-        "use strict";
-        var defaultSettings = {
-          alignVert: false,
-          alignHoriz: false,
-          multiLine: false,
-          detectMultiLine: true,
-          minFontSize: 6,
-          maxFontSize: 80,
-          reProcess: true,
-          widthOnly: false,
-          alignVertWithFlexbox: false,
-        };
-        return function textFit(els, options) {
-          if (!options) options = {};
-          var settings = {};
-          for (var key in defaultSettings) {
-            if (options.hasOwnProperty(key)) {
-              settings[key] = options[key];
+        (function(root, factory) {
+            "use strict";
+            if (typeof define === "function" && define.amd) {
+                define([], factory);
+            } else if (typeof exports === "object") {
+                module.exports = factory();
             } else {
-              settings[key] = defaultSettings[key];
+                root.textFit = factory();
             }
-          }
-          if (typeof els.toArray === "function") {
-            els = els.toArray();
-          }
-          var elType = Object.prototype.toString.call(els);
-          if (
-            elType !== "[object Array]" &&
-            elType !== "[object NodeList]" &&
-            elType !== "[object HTMLCollection]"
-          ) {
-            els = [els];
-          }
-          for (var i = 0; i < els.length; i++) {
-            processItem(els[i], settings);
-          }
-        };
-        function processItem(el, settings) {
-          if (
-            !isElement(el) ||
-            (!settings.reProcess && el.getAttribute("textFitted"))
-          ) {
-            return false;
-          }
-          if (!settings.reProcess) {
-            el.setAttribute("textFitted", 1);
-          }
-          var innerSpan, originalHeight, originalHTML, originalWidth;
-          var low, mid, high;
-          originalHTML = el.innerHTML;
-          originalWidth = innerWidth(el);
-          originalHeight = innerHeight(el);
-          if (!originalWidth || (!settings.widthOnly && !originalHeight)) {
-            if (!settings.widthOnly)
-              throw new Error(
-                "Set a static height and width on the target element " +
-                  el.outerHTML +
-                  " before using textFit!"
-              );
-            else
-              throw new Error(
-                "Set a static width on the target element " +
-                  el.outerHTML +
-                  " before using textFit!"
-              );
-          }
-          if (originalHTML.indexOf("textFitted") === -1) {
-            innerSpan = document.createElement("span");
-            innerSpan.className = "textFitted";
-            innerSpan.style["display"] = "inline-block";
-            innerSpan.innerHTML = originalHTML;
-            el.innerHTML = "";
-            el.appendChild(innerSpan);
-          } else {
-            innerSpan = el.querySelector("span.textFitted");
-            if (hasClass(innerSpan, "textFitAlignVert")) {
-              innerSpan.className = innerSpan.className.replace(
-                "textFitAlignVert",
-                ""
-              );
-              innerSpan.style["height"] = "";
-              el.className.replace("textFitAlignVertFlex", "");
-            }
-          }
-          if (settings.alignHoriz) {
-            el.style["text-align"] = "center";
-            innerSpan.style["text-align"] = "center";
-          }
-          var multiLine = settings.multiLine;
-          if (
-            settings.detectMultiLine &&
-            !multiLine &&
-            innerSpan.scrollHeight >=
-              parseInt(window.getComputedStyle(innerSpan)["font-size"], 10) * 2
-          ) {
-            multiLine = true;
-          }
-          if (!multiLine) {
-            el.style["white-space"] = "nowrap";
-          }
-          low = settings.minFontSize;
-          high = settings.maxFontSize;
-          var size = low;
-          while (low <= high) {
-            mid = (high + low) >> 1;
-            innerSpan.style.fontSize = mid + "px";
-            if (
-              innerSpan.scrollWidth <= originalWidth &&
-              (settings.widthOnly || innerSpan.scrollHeight <= originalHeight)
-            ) {
-              size = mid;
-              low = mid + 1;
-            } else {
-              high = mid - 1;
-            }
-          }
-          if (innerSpan.style.fontSize != size + "px")
-            innerSpan.style.fontSize = size + "px";
-          if (settings.alignVert) {
-            addStyleSheet();
-            var height = innerSpan.scrollHeight;
-            if (window.getComputedStyle(el)["position"] === "static") {
-              el.style["position"] = "relative";
-            }
-            if (!hasClass(innerSpan, "textFitAlignVert")) {
-              innerSpan.className = innerSpan.className + " textFitAlignVert";
-            }
-            innerSpan.style["height"] = height + "px";
-            if (
-              settings.alignVertWithFlexbox &&
-              !hasClass(el, "textFitAlignVertFlex")
-            ) {
-              el.className = el.className + " textFitAlignVertFlex";
-            }
-          }
-        }
-        function innerHeight(el) {
-          var style = window.getComputedStyle(el, null);
-          return (
-            el.clientHeight -
-            parseInt(style.getPropertyValue("padding-top"), 10) -
-            parseInt(style.getPropertyValue("padding-bottom"), 10)
-          );
-        }
-        function innerWidth(el) {
-          var style = window.getComputedStyle(el, null);
-          return (
-            el.clientWidth -
-            parseInt(style.getPropertyValue("padding-left"), 10) -
-            parseInt(style.getPropertyValue("padding-right"), 10)
-          );
-        }
-        function isElement(o) {
-          return typeof HTMLElement === "object"
-            ? o instanceof HTMLElement
-            : o &&
-                typeof o === "object" &&
-                o !== null &&
-                o.nodeType === 1 &&
-                typeof o.nodeName === "string";
-        }
-        function hasClass(element, cls) {
-          return (" " + element.className + " ").indexOf(" " + cls + " ") > -1;
-        }
-        function addStyleSheet() {
-          if (document.getElementById("textFitStyleSheet")) return;
-          var style = [
-            ".textFitAlignVert{",
-            "position: absolute;",
-            "top: 0; right: 0; bottom: 0; left: 0;",
-            "margin: auto;",
-            "display: flex;",
-            "justify-content: center;",
-            "flex-direction: column;",
-            "}",
-            ".textFitAlignVertFlex{",
-            "display: flex;",
-            "}",
-            ".textFitAlignVertFlex .textFitAlignVert{",
-            "position: static;",
-            "}",
-          ].join("");
-          var css = document.createElement("style");
-          css.type = "text/css";
-          css.id = "textFitStyleSheet";
-          css.innerHTML = style;
-          document.body.appendChild(css);
-        }
-      });
-    </script>
-
-    <script>
-      document.querySelector('#textSite').addEventListener("paste", function(e) {
-        e.preventDefault();
-        var text = e.clipboardData.getData("text/plain");
-        document.execCommand("insertHTML", false, text);
-});
-
-
-
-
-
-      function readSuper() {
-
-        if (regionName == "") {
-            regionName = "temp";
-          }
-
-
-      jQuery(document).ready(function($){
-          $.ajax({
-      url: `http://172.20.10.3:7000/midiText/${regionName}.txt`,
-      success: function(data) {
-      //console.log(data); // Выведет содержимое файла в консоль
-      document.getElementById("textLyr").textContent = data
-      }
-      });
-      });
-      }
-
-
-
-      function read() {
-        //document.getElementById("file").value = "C:\fakepath\nnn.txt"
-
-        var file = document.getElementById("file").files[0];
-        // var path = document.getElementById("file").value
-        // document.getElementById("path").textContent=file
-        //   console.log("Loading \""+file.name+"\"... ("+Math.round(file.size/1024)+"kB)")
-
-        //   if(file.size>=256*1024){
-        //     if(!confirm("File size is "+Math.round(file.size/1024)+"kBytes! Really want to read it?")){
-        //       console.log("Aborting loading file...")
-        //       return
-        //   }
-        //   }
-        var reader = new FileReader();
-        reader.onload = function () {
-          console.log("File readed!");
-          document.getElementById("textLyr").innerHTML = reader.result;
-        };
-        console.log("Starting reading file...");
-        reader.readAsText(file);
-      }
-
-      function readTxt(input) {
-        let file = document.getElementById("file").files[0];
-        let reader = new FileReader();
-        reader.onload = function () {
-          document.getElementById("textLyr").innerHTML = reader.result;
-          reader.readAsText(file, "uft-8");
-        };
-
-        //alert(`File name: ${file.name}`); // например, my.png
-        //alert(`Last modified: ${file.lastModified}`); // например, 1552830408824
-        document.getElementById("textLyr").innerHTML = textLyr;
-      }
-
-      
-
-      document.querySelector("#pasteLyr").addEventListener("click", function () {
-          navigator.clipboard
-                    .readText()
-                    .then(
-                        cliptext =>
-                            (document.getElementById('textSite').textContent = cliptext),
-                            err => console.log(err)
-                    );
-      
-      })
-
-      
-      document.querySelector("#lyr2Midi").addEventListener("click", function () {
-        
-        lyr2Reaper = document.getElementById("textLyr").textContent;
-        
-
-        lyr2Reaper = lyr2Reaper.replaceAll(" ", " |");
-        lyr2Reaper = lyr2Reaper.replaceAll(`\n\n`,`   |`);
-        lyr2Reaper = lyr2Reaper.replaceAll(`\n`,`  |`);
-        lyr2Reaper = lyr2Reaper.replaceAll(`-`,`|`);
-
-        lyr2Reaper0=lyr2Reaper.substr(0,200)
-        lyr2Reaper1=lyr2Reaper.substr(200,200)
-        lyr2Reaper2=lyr2Reaper.substr(400,200)
-        lyr2Reaper3=lyr2Reaper.substr(600,200)
-        lyr2Reaper4=lyr2Reaper.substr(800,200)
-        lyr2Reaper5=lyr2Reaper.substr(1000,200)
-        lyr2Reaper6=lyr2Reaper.substr(1200,200)
-        lyr2Reaper7=lyr2Reaper.substr(1400,200)
-        lyr2Reaper8=lyr2Reaper.substr(1600,200)
-        lyr2Reaper9=lyr2Reaper.substr(1800,200)
-        // str.substr(start[, length])
-
-
-        console.log("lyr2Reaper", lyr2Reaper)
-        console.log("lyr2Reaper0", lyr2Reaper0)
-        console.log("lyr2Reaper1", lyr2Reaper1)
-        console.log("lyr2Reaper2", lyr2Reaper2)
-        console.log("lyr2Reaper3", lyr2Reaper3)
-        console.log("lyr2Reaper4", lyr2Reaper4)
-        console.log("lyr2Reaper5", lyr2Reaper5)
-        console.log("lyr2Reaper6", lyr2Reaper6)
-        console.log("lyr2Reaper7", lyr2Reaper7)
-        console.log("lyr2Reaper8", lyr2Reaper8)
-        console.log("lyr2Reaper9", lyr2Reaper9)
-
-        wwr_req(`SET/EXTSTATE/Lyric/Y/Y`)
-
-        wwr_req(`SET/EXTSTATE/Lyric0/Y/${lyr2Reaper0}`)
-        wwr_req(`SET/EXTSTATE/Lyric1/Y/${lyr2Reaper1}`)
-        wwr_req(`SET/EXTSTATE/Lyric2/Y/${lyr2Reaper2}`)
-        wwr_req(`SET/EXTSTATE/Lyric3/Y/${lyr2Reaper3}`)
-        wwr_req(`SET/EXTSTATE/Lyric4/Y/${lyr2Reaper4}`)
-        wwr_req(`SET/EXTSTATE/Lyric5/Y/${lyr2Reaper5}`)
-        wwr_req(`SET/EXTSTATE/Lyric6/Y/${lyr2Reaper6}`)
-        wwr_req(`SET/EXTSTATE/Lyric7/Y/${lyr2Reaper7}`)
-        wwr_req(`SET/EXTSTATE/Lyric8/Y/${lyr2Reaper8}`)
-        wwr_req(`SET/EXTSTATE/Lyric9/Y/${lyr2Reaper9}`)
-        
-
-      })
-
-
-
-      document.querySelector("#save").addEventListener("click", function () {
-        var section = "notes";
-        var key = "save";
-        var value = document.getElementById("textLyr").textContent;
-        console.log("SAVE");
-        wwr_start();
-        wwr_req("SET/EXTSTATEPERSIST/" + section + "/" + key + "/" + value);
-      });
-
-      document.querySelector("#read").addEventListener("click", function () {
-        var section = "notes";
-        var key = "read";
-        var value = "y";
-        wwr_start();
-        wwr_req("SET/EXTSTATEPERSIST/" + section + "/" + key + "/" + value);
-        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/notes", 3000);
-      });
-
-      document
-        .querySelector("#downloadLyr")
-        .addEventListener("click", function () {
-          if (regionName == "") {
-            regionName = "temp";
-          }
-          downloadTextFile(regionName);
-          // wwr_req_recur_cancel("GET/PROJEXTSTATE/2ZS_Lyrics/regionName")
-        });
-
-      function downloadTextFile(regionName) {
-        // Open Reaper resource path
-        //wwr_req(encodeURIComponent(REApath));
-
-        // Create text file from array input
-        var textFile = null,
-          makeTextFile = function (arr) {
-            var arrToText = new Blob([arr], { type: "text/plain" });
-            // If we are replacing a previously generated file we need to
-            // manually revoke the object URL to avoid memory leaks.
-            if (textFile !== null) {
-              window.URL.revokeObjectURL(textFile);
-            }
-            textFile = window.URL.createObjectURL(arrToText);
-            return textFile;
-          };
-
-        // Create page element for link to file
-        var link = document.createElement("a");
-        link.setAttribute("download", regionName + ".txt");
-        // link.href = makeTextFile(jsonFullTable);
-        link.href = makeTextFile(
-          document.getElementById("textLyr").textContent
-        );
-        // Spoof user clicking on new download link
-        document.body.appendChild(link);
-        window.requestAnimationFrame(function () {
-          var event = new MouseEvent("click");
-          link.dispatchEvent(event);
-          document.body.removeChild(link);
-        });
-      }
-
-      //utf8 to 1251 converter (1 byte format, RU/EN support only + any other symbols) by drgluck
-function utf8_decode (aa) {
-    var bb = '', c = 0;
-    for (var i = 0; i < aa.length; i++) {
-        c = aa.charCodeAt(i);
-        if (c > 127) {
-            if (c > 1024) {
-                if (c == 1025) {
-                    c = 1016;
-                } else if (c == 1105) {
-                    c = 1032;
+        })
+        (typeof global === "object" ? global : this, function() {
+            "use strict";
+            var defaultSettings = {
+                alignVert: false,
+                alignHoriz: false,
+                multiLine: false,
+                detectMultiLine: true,
+                minFontSize: 6,
+                maxFontSize: 80,
+                reProcess: true,
+                widthOnly: false,
+                alignVertWithFlexbox: false,
+            };
+            return function textFit(els, options) {
+                if (!options) options = {};
+                var settings = {};
+                for (var key in defaultSettings) {
+                    if (options.hasOwnProperty(key)) {
+                        settings[key] = options[key];
+                    } else {
+                        settings[key] = defaultSettings[key];
+                    }
                 }
-                bb += String.fromCharCode(c - 848);
+                if (typeof els.toArray === "function") {
+                    els = els.toArray();
+                }
+                var elType = Object.prototype.toString.call(els);
+                if (
+                    elType !== "[object Array]" &&
+                    elType !== "[object NodeList]" &&
+                    elType !== "[object HTMLCollection]"
+                ) {
+                    els = [els];
+                }
+                for (var i = 0; i < els.length; i++) {
+                    processItem(els[i], settings);
+                }
+            };
+
+            function processItem(el, settings) {
+                if (!isElement(el) ||
+                    (!settings.reProcess && el.getAttribute("textFitted"))
+                ) {
+                    return false;
+                }
+                if (!settings.reProcess) {
+                    el.setAttribute("textFitted", 1);
+                }
+                var innerSpan, originalHeight, originalHTML, originalWidth;
+                var low, mid, high;
+                originalHTML = el.innerHTML;
+                originalWidth = innerWidth(el);
+                originalHeight = innerHeight(el);
+                if (!originalWidth || (!settings.widthOnly && !originalHeight)) {
+                    if (!settings.widthOnly)
+                        throw new Error(
+                            "Set a static height and width on the target element " +
+                            el.outerHTML +
+                            " before using textFit!"
+                        );
+                    else
+                        throw new Error(
+                            "Set a static width on the target element " +
+                            el.outerHTML +
+                            " before using textFit!"
+                        );
+                }
+                if (originalHTML.indexOf("textFitted") === -1) {
+                    innerSpan = document.createElement("span");
+                    innerSpan.className = "textFitted";
+                    innerSpan.style["display"] = "inline-block";
+                    innerSpan.innerHTML = originalHTML;
+                    el.innerHTML = "";
+                    el.appendChild(innerSpan);
+                } else {
+                    innerSpan = el.querySelector("span.textFitted");
+                    if (hasClass(innerSpan, "textFitAlignVert")) {
+                        innerSpan.className = innerSpan.className.replace(
+                            "textFitAlignVert",
+                            ""
+                        );
+                        innerSpan.style["height"] = "";
+                        el.className.replace("textFitAlignVertFlex", "");
+                    }
+                }
+                if (settings.alignHoriz) {
+                    el.style["text-align"] = "center";
+                    innerSpan.style["text-align"] = "center";
+                }
+                var multiLine = settings.multiLine;
+                if (
+                    settings.detectMultiLine &&
+                    !multiLine &&
+                    innerSpan.scrollHeight >=
+                    parseInt(window.getComputedStyle(innerSpan)["font-size"], 10) * 2
+                ) {
+                    multiLine = true;
+                }
+                if (!multiLine) {
+                    el.style["white-space"] = "nowrap";
+                }
+                low = settings.minFontSize;
+                high = settings.maxFontSize;
+                var size = low;
+                while (low <= high) {
+                    mid = (high + low) >> 1;
+                    innerSpan.style.fontSize = mid + "px";
+                    if (
+                        innerSpan.scrollWidth <= originalWidth &&
+                        (settings.widthOnly || innerSpan.scrollHeight <= originalHeight)
+                    ) {
+                        size = mid;
+                        low = mid + 1;
+                    } else {
+                        high = mid - 1;
+                    }
+                }
+                if (innerSpan.style.fontSize != size + "px")
+                    innerSpan.style.fontSize = size + "px";
+                if (settings.alignVert) {
+                    addStyleSheet();
+                    var height = innerSpan.scrollHeight;
+                    if (window.getComputedStyle(el)["position"] === "static") {
+                        el.style["position"] = "relative";
+                    }
+                    if (!hasClass(innerSpan, "textFitAlignVert")) {
+                        innerSpan.className = innerSpan.className + " textFitAlignVert";
+                    }
+                    innerSpan.style["height"] = height + "px";
+                    if (
+                        settings.alignVertWithFlexbox &&
+                        !hasClass(el, "textFitAlignVertFlex")
+                    ) {
+                        el.className = el.className + " textFitAlignVertFlex";
+                    }
+                }
             }
-        } else {
-            bb += aa.charAt(i);
-        }
-    }
-    return bb;
-} 
 
-
-
-
-
-      document
-        .querySelector("#getLyric")
-        .addEventListener("click", function () {
-          let textL = allLyric;
-
-          console.log("textL", textL);
-
-          // let LyricTxt
-
-    // LyricTxt=LyricTxt.encode('cp1251')
-    // # print('*******************')
-    // # print(LyricTxt)
-    // LyricTxt=LyricTxt.decode('latin-1')
-    // # print('*******************')
-    // # print(LyricTxt)
-    // # print('*******************')
-
-
-
-    // # print (LyricTxt)
-          // LyricTxt = allLyric.encode(encoding = 'utf-8')
-          // LyricTxt = allLyric.decode("windows-1251")
-
-          // let encoder = new TextEncoder().encode(allLyric);
-          // console.log("allLyric", encoder);
-          // LyricTxt = new TextDecoder('cp1251').decode(encoder);
-          // console.log("LyricTxt", LyricTxt);
-          // console.log("textL", textL);
-
-          // textL2  = conv(textL)
-
-
-          // console.log("textL2", textL2);
-
-          textL = textL.replaceAll("à", "а");
-          textL = textL.replaceAll("á", "б");
-          textL = textL.replaceAll("â", "в");
-          textL = textL.replaceAll("ã", "г");
-          textL = textL.replaceAll("ä", "д");
-          textL = textL.replaceAll("å", "е");
-          textL = textL.replaceAll("¸", "ё");
-          textL = textL.replaceAll("æ", "ж");
-          textL = textL.replaceAll("ç", "з");
-          textL = textL.replaceAll("è", "и");
-          textL = textL.replaceAll("é", "й");
-          textL = textL.replaceAll("ê", "к");
-          textL = textL.replaceAll("ë", "л");
-          textL = textL.replaceAll("ì", "м");
-          textL = textL.replaceAll("í", "н");
-          textL = textL.replaceAll("î", "о");
-          textL = textL.replaceAll("ï", "п");
-          textL = textL.replaceAll("ð", "р");
-          textL = textL.replaceAll("ñ", "с");
-          textL = textL.replaceAll("ò", "т");
-          textL = textL.replaceAll("ó", "у");
-          textL = textL.replaceAll("ô", "ф");
-          textL = textL.replaceAll("õ", "х");
-          textL = textL.replaceAll("ö", "ц");
-          textL = textL.replaceAll("÷", "ч");
-          textL = textL.replaceAll("ø", "ш");
-          textL = textL.replaceAll("ù", "щ");
-          textL = textL.replaceAll("ú", "ъ");
-          textL = textL.replaceAll("ü", "ь");
-          textL = textL.replaceAll("û", "ы");
-          textL = textL.replaceAll("ý", "э");
-          textL = textL.replaceAll("þ", "ю");
-          textL = textL.replaceAll("ÿ", "я");
-
-          textL = textL.replaceAll("À", "А");
-          textL = textL.replaceAll("Á", "Б");
-          textL = textL.replaceAll("Â", "В");
-          textL = textL.replaceAll("Ã", "Г");
-          textL = textL.replaceAll("Ä", "Д");
-          textL = textL.replaceAll("Å", "Е");
-          textL = textL.replaceAll("¨", "Ё");
-          textL = textL.replaceAll("Æ", "Ж");
-          textL = textL.replaceAll("Ç", "З");
-          textL = textL.replaceAll("È", "И");
-          textL = textL.replaceAll("É", "Й");
-          textL = textL.replaceAll("Ê", "К");
-          textL = textL.replaceAll("Ë", "Л");
-          textL = textL.replaceAll("Ì", "М");
-          textL = textL.replaceAll("Í", "Н");
-          textL = textL.replaceAll("Î", "О");
-          textL = textL.replaceAll("Ï", "П");
-          textL = textL.replaceAll("Ð", "Р");
-          textL = textL.replaceAll("Ñ", "С");
-          textL = textL.replaceAll("Ò", "Т");
-          textL = textL.replaceAll("Ó", "У");
-          textL = textL.replaceAll("Ô", "Ф");
-          textL = textL.replaceAll("Õ", "Х");
-          textL = textL.replaceAll("Ö", "Ц");
-          textL = textL.replaceAll("×", "Ч");
-          textL = textL.replaceAll("Ø", "Ш");
-          textL = textL.replaceAll("Ù", "Щ");
-          textL = textL.replaceAll("Ú", "Ъ");
-          textL = textL.replaceAll("Ü", "Ь");
-          textL = textL.replaceAll("Û", "Ы");
-          textL = textL.replaceAll("Ý", "Э");
-          textL = textL.replaceAll("Þ", "Ю");
-          textL = textL.replaceAll("ß", "Я");
-
-
-          textL = textL.replaceAll("³", "і");
-          textL = textL.replaceAll("¿", "ї");
-          textL = textL.replaceAll("º", "є");
-          textL = textL.replaceAll("²", "I");
-          
-          textL = textL.replaceAll("Ƹ", "Жё");
-          textL = textL.replaceAll("ѳ", "Сі");
-          textL = textL.replaceAll("", "п’є");
-          textL = textL.replaceAll("ϳ", "Пі");
-          textL = textL.replaceAll("ĳ", "Ді");
-          textL = textL.replaceAll("˸", "Лё");
-          textL = textL.replaceAll("ճ", "Хi");
-          textL = textL.replaceAll("ֳֳ ", "Цi");//not work...
-          textL = textL.replaceAll("ͳ", "Нi");
-          textL = textL.replaceAll("ª", "Є");
-          textL = textL.replaceAll("ǳ", "Зі");
-          textL = textL.replaceAll("¢", "ў");
-          textL = textL.replaceAll("Ƴ", "Жi");
-          textL = textL.replaceAll("Ҹ", "Тё");
-          textL = textL.replaceAll("׸", "Чё");
-          
-          // textL = textL.replaceAll("ͳ", "Нi");
-          // textL = textL.replaceAll("", "Нi");
-          // textL = textL.replaceAll("ͳ", "Нi");
-          // textL = textL.replaceAll("ͳ", "Нi");
-          // textL = textL.replaceAll("", "Нi");
-          
-          
-
-          textL = textL.replaceAll(` | |`, `\n`);
-          textL = textL.replaceAll(`\n |`, `\n\n`);
-          textL = textL.replaceAll(` |`, ` `);
-          textL = textL.replaceAll(`|`, `-`);
-          
-          textL = textL.replaceAll(`\\n\\n-`, `\n\n`);
-          textL = textL.replaceAll(`\\n-`, `\n`);
-          
-          // textL=textL.replaceAll(`|`, ``)
-          // textL=textL.replaceAll(new RegExp('\n', "g"), " ")
-          // textL=textL.replaceAll("\n", ``)
-          // textL=textL.replaceAll(` -\n-`, `\n\n`)
-
-          // textL=textL.replaceAll(`|\n|`, `\n`)
-          // textL=textL.replaceAll(` |`, ` `)
-          // textL=textL.replaceAll(`\n|`, `\n`)
-          // textL=textL.replaceAll(`|`, `-`)
-
-          if (textL[0] === "-") {
-            textL = textL.slice(1);
-          }
-
-          // console.log("textL2", textL);
-          document.getElementById("textLyr").textContent = textL;
-        });
-
-      function razdelit(string, start, finish) {
-        // console.log("string",string)
-        str = string.substring(start, finish);
-
-        strs = str.split(" ");
-        for (i = 0; i < strs.length - 2; i++) {
-          if (strs[i] === "не") {
-            strs[i + 1] = "не " + strs[i + 1];
-            strs.splice(i, 1);
-          }
-        }
-
-        // console.log("strs", strs)
-
-        lenStrHalf = Math.floor((strs.length + 1) / 2);
-
-        // console.log("lenStrHalf",lenStrHalf)
-        ttt = strs[lenStrHalf];
-        // console.log("ttt",ttt)
-
-        strs.splice(lenStrHalf, 1);
-        strs[lenStrHalf - 1] = strs[lenStrHalf - 1] + `\n` + ttt;
-
-        strsJoin = strs.join(" ");
-        // console.log("strJoin",strsJoin)
-
-        el = string.substr(0, start) + strsJoin + string.substr(finish);
-        // console.log("el",el)
-        return el;
-      }
-
-      document.querySelector("#copy").addEventListener("click", function () {
-        let eee = document.getElementById("textLyr").textContent;
-        eee = eee.replaceAll("-", "");
-        eee = eee.replaceAll("=", "-");
-        document.getElementById("textSite").textContent = eee;
-      });
-
-      document.querySelector("#start").addEventListener("click", function () {
-        let $el = document.getElementById("textSite").textContent;
-
-        vowels = "ѳYyUuOoAaJjEeiiіїєуеёэоаыяиюIУЕЁЭОАЫЯИЮ";// ZADAJUTSJA ZDES!!!
-
-        //.split(',')
-        const charsDelete = `,.?!()`; //document.querySelector('#charsDelete').value
-
-        //$el = document.querySelector('#editor').textContent
-        $el = $el.replaceAll(`Припев:\n`, "");
-        $el = $el.replaceAll(`припев:\n`, "");
-        $el = $el.replaceAll(`Припев:`, "");
-        $el = $el.replaceAll(`Пред припев:`, "");
-        $el = $el.replaceAll(`\n\n\n`, "\n\n");
-        $el = $el.replace(/          /g, " ");
-        $el = $el.replace(/         /g, " ");
-        $el = $el.replace(/        /g, " ");
-        $el = $el.replace(/       /g, " ");
-        $el = $el.replace(/      /g, " ");
-        $el = $el.replace(/     /g, " ");
-        $el = $el.replace(/    /g, " ");
-        $el = $el.replace(/   /g, " ");
-        $el = $el.replace(/   /g, " ");
-        $el = $el.replace(/  /g, " ");
-        $el = $el.replace(/  /g, " ");
-
-        for (i = 0; i < $el.length; i++) {
-          if (
-            ($el.substring(i, i + 2) === `. `) &
-            ($el.substring(i + 3, i + 4) != `\n`)
-          ) {
-            $el = $el.substr(0, i + 1) + `\n` + $el.substr(i + 2);
-          } else if (
-            ($el.substring(i, i + 2) === `! `) &
-            ($el.substring(i + 3, i + 4) != `\n`)
-          ) {
-            $el = $el.substr(0, i + 1) + `\n` + $el.substr(i + 2);
-          } else if (
-            ($el.substring(i, i + 2) === `? `) &
-            ($el.substring(i + 3, i + 4) != `\n`)
-          ) {
-            $el = $el.substr(0, i + 1) + `\n` + $el.substr(i + 2);
-          }
-        }
-
-        $el = $el.replace(new RegExp(`[${charsDelete}]`, "g"), "");
-
-        $el = $el.replaceAll(" - ", " ");
-        $el = $el.replaceAll(" – ", " ");
-        $el = $el.replaceAll("–", " "); 
-        
-        $el = $el.replaceAll(" в ", " в_");
-        $el = $el.replaceAll("В ", "В_");
-        $el = $el.replaceAll(" с ", " с_");
-        $el = $el.replaceAll("С ", "С_");
-        $el = $el.replaceAll(" к ", " к_");
-        $el = $el.replaceAll("К ", "К_");
-        $el = $el.replaceAll(" ж ", "_ж ");
-        $el = $el.replaceAll(";", "");
-        $el = $el.replaceAll(":", "");
-        $el = $el.replaceAll('…',"")
-        $el = $el.replaceAll("—", "");
-        $el = $el.replaceAll(" -", "");
-        $el = $el.replaceAll(" - ", "");
-        $el = $el.replaceAll("- ", "");
-        // $el = $el.replaceAll('"', "");
-
-        let posSpaces = [];
-        let posBreakLine = [];
-        let posAbzac = [];
-        let posGlasnye = [];
-        let posUpCase = [];
-        let searchVolwels = new RegExp(`[${vowels}]`, "g");
-        let searchVolwel = new RegExp(`[${vowels}]`);
-        let upCase = false;
-        //debugger 
-
-        if ($el.substring($el.length, $el.length + 1) != `\n`) {
-          $el = $el + `\n`;
-        }
-
-        for (i = 0; i < $el.length; i++) {
-          if ($el.substring(i, i + 3) === `\n \n`) {
-            posAbzac.push(i);
-            i = i + 1;
-          }
-          if ($el.substring(i, i + 1) === `\n`) {
-            posBreakLine.push(i);
-            if (posBreakLine.length > 1) {
-              if (
-                posBreakLine[posBreakLine.length - 1] -
-                  posBreakLine[posBreakLine.length - 2] >
-                28
-              ) {
-                $el = razdelit(
-                  $el,
-                  posBreakLine[posBreakLine.length - 2],
-                  posBreakLine[posBreakLine.length - 1]
+            function innerHeight(el) {
+                var style = window.getComputedStyle(el, null);
+                return (
+                    el.clientHeight -
+                    parseInt(style.getPropertyValue("padding-top"), 10) -
+                    parseInt(style.getPropertyValue("padding-bottom"), 10)
                 );
-                i = 0;
-              }
-            } else if (posBreakLine.length === 1) {
-              if (posBreakLine[0] > 28) {
-                $el = razdelit($el, 0, posBreakLine[0]);
-                i = 0;
-              }
             }
-          }
-        }
 
-        posBreakLine = [];
-        posAbzac = [];
-        $el = $el.replaceAll(`\n `, `\n`);
-        $el = $el.replaceAll(` \n`, `\n`);
-
-        for (i = 0; i < $el.length; i++) {
-          // console.log('i',i)
-
-          if ($el.substring(i, i + 3) === `\n \n`) {
-            upCase = true;
-            posAbzac.push(i);
-            i = i + 2;
-          } else if ($el.substring(i, i + 2) === `\n\n`) {
-            upCase = true;
-            posAbzac.push(i);
-            i = i + 1;
-          }
-
-          if (
-            ($el.substring(i, i + 1) === `\n`) &
-            ($el.substring(i + 1, i + 2) != " ") &
-            ($el.substring(i + 1, i + 2) != `\n`) &
-            ($el.substring(i + 2, i + 3) != `\n`)
-          ) {
-            posBreakLine.push(i);
-
-            if (upCase) {
-              let upp = $el.substring(i + 1, i + 2);
-              // console.log("upp", upp)
-              $el =
-                $el.substr(0, i + 1) + upp.toUpperCase() + $el.substr(i + 2);
-              upCase = false;
-            } else {
-              let low = $el.substring(i + 1, i + 2);
-              $el =
-                $el.substr(0, i + 1) + low.toLowerCase() + $el.substr(i + 2);
-              // console.log("low", low)
-              upCase = true;
+            function innerWidth(el) {
+                var style = window.getComputedStyle(el, null);
+                return (
+                    el.clientWidth -
+                    parseInt(style.getPropertyValue("padding-left"), 10) -
+                    parseInt(style.getPropertyValue("padding-right"), 10)
+                );
             }
-          }
-        }
 
-        for (i = 0; i < $el.length; i++) {
-          // console.log('i',i)
-          if ($el.substring(i, i + 1) === ` `) {
-            posSpaces.push(i);
-          }
-        }
+            function isElement(o) {
+                return typeof HTMLElement === "object" ?
+                    o instanceof HTMLElement :
+                    o &&
+                    typeof o === "object" &&
+                    o !== null &&
+                    o.nodeType === 1 &&
+                    typeof o.nodeName === "string";
+            }
 
-        for (i = 0; i < $el.length; i++) {
-          // console.log('searchVolwels',searchVolwels)
-          if (searchVolwels.test($el.substring(i, i + 1))) {
-            // console.log('volwels')
-            posGlasnye.push(i);
-          }
-          if (
-            $el.substring(i, i + 1) === $el.substring(i, i + 1).toUpperCase()
-          ) {
-            // console.log('toUpperCase')
-            posUpCase.push(i);
-          }
-        }
+            function hasClass(element, cls) {
+                return (" " + element.className + " ").indexOf(" " + cls + " ") > -1;
+            }
 
-        // console.log("posSpaces", posSpaces)
-        // console.log("posBreakLine", posBreakLine)
-        // console.log("posAbzac", posAbzac)
-        // console.log("posGlasnye", posGlasnye)
-        // console.log("posUpCase", posUpCase)
-        // console.log("$el", $el)
+            function addStyleSheet() {
+                if (document.getElementById("textFitStyleSheet")) return;
+                var style = [
+                    ".textFitAlignVert{",
+                    "position: absolute;",
+                    "top: 0; right: 0; bottom: 0; left: 0;",
+                    "margin: auto;",
+                    "display: flex;",
+                    "justify-content: center;",
+                    "flex-direction: column;",
+                    "}",
+                    ".textFitAlignVertFlex{",
+                    "display: flex;",
+                    "}",
+                    ".textFitAlignVertFlex .textFitAlignVert{",
+                    "position: static;",
+                    "}",
+                ].join("");
 
-        // создание модели ПЕСНЯ
-        document.getElementById("textLyr").textContent = $el;
 
-        let kuplets = $el.split(`\n \n`);
-        let Pesnja = kuplets.map((kuplet) => {
-          let lines = kuplet.split(`\n`);
-          lines.map((line) => {
-            words = line.split(` `);
-            syllables = words.map((word) => {
-              //return word.split(new RegExp(`(?=[${vowels}])`, "g"))
-              return word.split(/[ѳYyUuOoAaJjEeiіїєуеёэоаыяиюIУЕЁЭОАЫЯИЮ]/g);
+                var css = document.createElement("style");
+                css.type = "text/css";
+                css.id = "textFitStyleSheet";
+                css.innerHTML = style;
+                document.body.appendChild(css);
+
+            }
+        });
+    </script>
+
+    <script>
+        document.querySelector('#textSite').addEventListener("paste", function(e) {
+            e.preventDefault();
+            var text = e.clipboardData.getData("text/plain");
+
+
+
+            document.execCommand("insertHTML", false, text);
+        });
+
+
+
+
+
+        function readSuper() {
+
+            if (regionName == "") {
+                regionName = "temp";
+            }
+
+
+            jQuery(document).ready(function($) {
+                $.ajax({
+                    url: `http://172.20.10.3:7000/midiText/${regionName}.txt`,
+                    success: function(data) {
+                        //console.log(data); // Выведет содержимое файла в консоль
+                        document.getElementById("textLyr").textContent = data
+                    }
+                });
             });
-            // console.log(syllables)
-          });
+        }
+
+
+
+        function read() {
+            //document.getElementById("file").value = "C:\fakepath\nnn.txt"
+
+            var file = document.getElementById("file").files[0];
+            // var path = document.getElementById("file").value
+            // document.getElementById("path").textContent=file
+            //   console.log("Loading \""+file.name+"\"... ("+Math.round(file.size/1024)+"kB)")
+
+            //   if(file.size>=256*1024){
+            //     if(!confirm("File size is "+Math.round(file.size/1024)+"kBytes! Really want to read it?")){
+            //       console.log("Aborting loading file...")
+            //       return
+            //   }
+            //   }
+            var reader = new FileReader();
+            reader.onload = function() {
+                console.log("File readed!");
+                document.getElementById("textLyr").innerHTML = reader.result;
+            };
+            console.log("Starting reading file...");
+            reader.readAsText(file);
+        }
+
+        function readTxt(input) {
+            let file = document.getElementById("file").files[0];
+            let reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById("textLyr").innerHTML = reader.result;
+                reader.readAsText(file, "uft-8");
+            };
+
+            //alert(`File name: ${file.name}`); // например, my.png
+            //alert(`Last modified: ${file.lastModified}`); // например, 1552830408824
+            document.getElementById("textLyr").innerHTML = textLyr;
+        }
+
+
+
+        document.querySelector("#pasteLyr").addEventListener("click", function() {
+            navigator.clipboard
+                .readText()
+                .then(
+
+                    cliptext =>
+                    (document.getElementById('textSite').textContent = cliptext),
+                    err => console.log(err)
+
+                );
+
+        })
+
+
+        document.querySelector("#lyr2Midi").addEventListener("click", function() {
+
+            lyr2Reaper = document.getElementById("textLyr").textContent;
+
+
+            lyr2Reaper = lyr2Reaper.replaceAll(" ", " |");
+            lyr2Reaper = lyr2Reaper.replaceAll(`\n\n`, `   |`);
+            lyr2Reaper = lyr2Reaper.replaceAll(`\n`, `  |`);
+            lyr2Reaper = lyr2Reaper.replaceAll(`-`, `|`);
+
+            lyr2Reaper0 = lyr2Reaper.substr(0, 200)
+            lyr2Reaper1 = lyr2Reaper.substr(200, 200)
+            lyr2Reaper2 = lyr2Reaper.substr(400, 200)
+            lyr2Reaper3 = lyr2Reaper.substr(600, 200)
+            lyr2Reaper4 = lyr2Reaper.substr(800, 200)
+            lyr2Reaper5 = lyr2Reaper.substr(1000, 200)
+            lyr2Reaper6 = lyr2Reaper.substr(1200, 200)
+            lyr2Reaper7 = lyr2Reaper.substr(1400, 200)
+            lyr2Reaper8 = lyr2Reaper.substr(1600, 200)
+            lyr2Reaper9 = lyr2Reaper.substr(1800, 200)
+                // str.substr(start[, length])
+
+
+            console.log("lyr2Reaper", lyr2Reaper)
+            console.log("lyr2Reaper0", lyr2Reaper0)
+            console.log("lyr2Reaper1", lyr2Reaper1)
+            console.log("lyr2Reaper2", lyr2Reaper2)
+            console.log("lyr2Reaper3", lyr2Reaper3)
+            console.log("lyr2Reaper4", lyr2Reaper4)
+            console.log("lyr2Reaper5", lyr2Reaper5)
+            console.log("lyr2Reaper6", lyr2Reaper6)
+            console.log("lyr2Reaper7", lyr2Reaper7)
+            console.log("lyr2Reaper8", lyr2Reaper8)
+            console.log("lyr2Reaper9", lyr2Reaper9)
+
+            wwr_req(`SET/EXTSTATE/Lyric/Y/Y`)
+
+            wwr_req(`SET/EXTSTATE/Lyric0/Y/${lyr2Reaper0}`)
+            wwr_req(`SET/EXTSTATE/Lyric1/Y/${lyr2Reaper1}`)
+            wwr_req(`SET/EXTSTATE/Lyric2/Y/${lyr2Reaper2}`)
+            wwr_req(`SET/EXTSTATE/Lyric3/Y/${lyr2Reaper3}`)
+            wwr_req(`SET/EXTSTATE/Lyric4/Y/${lyr2Reaper4}`)
+            wwr_req(`SET/EXTSTATE/Lyric5/Y/${lyr2Reaper5}`)
+            wwr_req(`SET/EXTSTATE/Lyric6/Y/${lyr2Reaper6}`)
+            wwr_req(`SET/EXTSTATE/Lyric7/Y/${lyr2Reaper7}`)
+            wwr_req(`SET/EXTSTATE/Lyric8/Y/${lyr2Reaper8}`)
+            wwr_req(`SET/EXTSTATE/Lyric9/Y/${lyr2Reaper9}`)
+
+
+        })
+
+
+
+        document.querySelector("#save").addEventListener("click", function() {
+            var section = "notes";
+            var key = "save";
+            var value = document.getElementById("textLyr").textContent;
+            console.log("SAVE");
+            wwr_start();
+            wwr_req("SET/EXTSTATEPERSIST/" + section + "/" + key + "/" + value);
         });
 
-        document.querySelector("#textLyr").textContent = $el;
-
-        $el = $el.replaceAll("-", "-=");
-        $el = $el.replaceAll("==", "=");
-        document.querySelector("#textLyr").textContent = $el;
-        a = "ѳ,Y,y,U,u,O,o,A,a,J,j,E,e,і,ї,є,i,у,е,ё,э,о,а,ы,я,и,ю,I,У,Е,Ё,Э,О,А,Ы,Я,И,Ю".split(",");
-
-        //!!!!!!!!!!!!!!!!!!!!!!
-        //debugger
-        let statVolwels = false;
-        for (i = $el.length; i != 0; i--) {
-          if (searchVolwel.test($el.substr(i - 1, 1)) && !statVolwels) {
-            statVolwels = true;
-          } else if (searchVolwel.test($el.substr(i - 1, 1)) && statVolwels) {
-            $el = $el.substr(0, i) + `-` + $el.substr(i);
-          }
-
-          if ($el.substr(i - 1, 1) === " ") {
-            statVolwels = false;
-          } else if ($el.substr(i - 1, 1) === `\n`) {
-            statVolwels = false;
-          } else if ($el.substr(i - 1, 1) === `=`) {
-            statVolwels = false;
-          }
-
-          //console.log($el)
-          let f = $el.substr(i - 1, 1);
-          // console.log(f)
-        }
-
-        // a.map(item => $el = star($el, item))
-        // $el = $el.replace(/- /g," ")
-        // //$el = $el.replace(new RegExp(`- `, "g"), " ") // variant
-        document.querySelector("#textLyr").textContent = $el;
-
-        function star(string, token) {
-          return string.split(token).join(token + "-");
-        }
-
-        document.getElementById("textLyr").textContent = $el;
-      });
-
-
-      $("#textLyr").keydown(function(e) {
-        if (e.keyCode == 13)
-        {
-          //not work
-          console.log('enter')
-          e.shiftKey=true
-          e.ctrlKey=true
-         console.log(e)
-            
-        }
-      });   
-
-      document
-        .getElementById("textSite")
-        .addEventListener("change", function () {
-          document.getElementById(
-            "textLyr"
-          ).textContent = document.getElementById("textSite").textContent;
-        });
-    </script>
-
-    <script>
-      //let textP //= document.getElementById('textLyr').textContent
-
-      function getSlogi(textP) {
-        ///var html1=""
-
-        // if (maxbeats == 0) {
-        //   html="<div class=\"text\">(no MIDI lyrics found on track "+lyrictrack+")</div>";
-        // }
-        // else {
-        //   var curm=1, curb=1; curd=1;
-        //   var re=/^(\d+)\.(\d+)\.(\d+)$/.exec(playpos)
-        //   if (re && re.length == 4) {
-        //     curm=re[1];
-        //     curb=re[2];
-        //     curd=re[3];
-        //   }
-
-        // console.log('text', textP)
-
-        kuplets = textP.split(`\n\n`);
-        kuplets = kuplets.map((kuplet) => {
-          return (kuplet += `\n\n`);
-        });
-        // console.log('kuplets', kuplets)
-
-        // tt = kuplets.join('')
-        // console.log('tt', tt)
-
-        str = kuplets.join(``).split(`\n`);
-        str = str.map((st) => {
-          st = st.trim();
-          return (st = ` ` + st + `\n`);
-        });
-        // console.log('str', str)
-        // tt = str.join('')
-        // console.log('tt', tt)
-
-        words = str.join(``).split(/[ ]/g);
-        words = words.map((word) => {
-          return (word = ` ` + word);
-        });
-        words[0] = "";
-        // console.log('words', words)
-
-        // tt = words.join(' ')
-        // console.log('tt', tt)
-
-        slogi = words.join(` `).split(/[ -]/g);
-
-        // console.log('slogi', slogi)
-
-        ///сборка обратно из слогов в текст
-
-        toText = slogi.join(`-`);
-        toText = toText.replace(/--/g, ` `);
-
-        str1 = toText.split(`\n`);
-        str1 = str1.map((st) => {
-          st = st.trim();
-          return (st = st + `\n`);
-        });
-        toText = str1.join("");
-
-        // console.log(toText)
-
-        // console.log(lyrictabla)
-
-        //html1 += textP
-
-        // var lines=0;
-        // debugger
-        // var m=Math.max(curm-lyriclines/4, 1);
-        // for (lines=0; lines < lyriclines; ++lines, ++m) {
-        //   html += "<div class=\"measure\">"+m+"</div>";
-        //   html += "<div class=\"text\">";
-        //   var b;
-        //   for (b=1; b <= maxbeats; ++b) {
-        //     if (b > 1) html += " ";
-        //     if (m == curm && b == curb) html += "<b>";
-        //     if (lyrics[m] && lyrics[m][b])
-        //       html += simple_unescape(lyrics[m][b]).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        //     else html += "&#x2219;";
-        //     if (m == curm && b == curb) html += "</b>";
-        //   }
-        //   html += "</div>";
-        // }
-
-        //  }
-        //document.getElementById("lyrics").innerHTML=html1;
-        //document.getElementById("lyrics").textContent=html1;
-        return slogi;
-      }
-
-      function joinslogi(slogiFin) {
-        toText = slogiFin.join(`-`);
-        toText = toText.replace(/--/g, ` `);
-
-        str1 = toText.split(`\n`);
-        str1 = str1.map((st) => {
-          st = st.trim();
-          return (st = st + `\n`);
-        });
-        toText = str1.join("");
-        return toText;
-      }
-    </script>
-
-    <script>
-      wwr_start();
-      wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/text;TRANSPORT", 10);
-      wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/regionName", 3000);
-      wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/allLyric", 2000);
-      var regionName = "noSet";
-      var text = "";
-      var div = document.getElementById("text");
-      var initial_text = div.innerHTML;
-      // console.log(initial_text)
-      var playstate_elm = document.getElementById("playstate");
-      var colors = [
-        "#333333",
-        "#00FF00",
-        "#FFFF00",
-        "#333333",
-        "#333333",
-        "#FF0000",
-        "#FFFF00",
-      ]; // playstate is 0 for stopped, 1 for playing, 2 for paused, 5 for recording, and 6 for record paused.
-      var detectMultiLine = true;
-      var lastDetectMultine = false;
-
-      function GetTabMaxLength(tab) {
-        //not used
-        let length = 0;
-        for (let i in tab) {
-          let line = tab[i];
-          length = Math.max(length, line.length);
-        }
-        return length;
-      }
-
-      function notesPlusSlogi(midiNotesStart, slogi) {
-        //делает таблицу из массива начала нот и массива слогов
-        //
-        let lyrictabla = [];
-        let n = 0;
-
-        for (i = 0; i <= slogi.length; ++i) {
-          lyrictabla[i] = [];
-
-          lyrictabla[i][1] = slogi[i];
-          // console.log('slogggg', slogi[i])
-
-          if ((slogi[i] !== "") & (slogi[i] !== `\n`)) {
-            lyrictabla[i][0] = midiNotesStart[n];
-            n = ++n;
-            if (n > midiNotesStart.length) {
-              //console.log("КОЛ-ВО НОТ НЕ СОВПАДАЕТ СО СЛОГАМИ")
-              //  ЕСЛИ КОЛ-ВО НОТ НЕ СОВПАДАЕТ СО СЛОГАМИ
-            }
-            // console.log(lyrictabla[i][0],lyrictabla[i][1])
-          }
-        }
-        //console.log(lyrictabla)
-        proverkaNotesSlogi(midiNotesStart, n);
-        return lyrictabla;
-      }
-
-      function proverkaNotesSlogi(midiNotesStart, n) {
-        //document.getElementById("notes").textContent = midiNotesStart.length
-        //document.getElementById("slogi").textContent = n
-        var x = document.getElementById("message");
-
-        if (midiNotesStart.length > n) {
-          //console.log(`НОТ БОЛЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length}, СЛОГОВ ${n}`)
-          document.getElementById(
-            "message"
-          ).textContent = `НОТ БОЛЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
-          x.style.color = "red";
-        }
-        if (midiNotesStart.length < n) {
-          //console.log()
-          document.getElementById(
-            "message"
-          ).textContent = `НОТ МЕНЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
-          x.style.color = "yellow";
-        }
-
-        if (midiNotesStart.length == n) {
-          x.style.color = "green";
-          document.getElementById(
-            "message"
-          ).textContent = `КОЛИЧЕСТОВ НОТ И СЛОГОВ СОВПАДАЕТ: ${n-1}`;
-        }
-      }
-
-      function wwr_onreply(results) {
-        //let textP = document.getElementById('textLyr').textContent
-        let lyric = [];
-        let txtToScr = "";
-        let slogiFin = [];
-        var ar = results.split("\n");
-        var x;
-        for (x = 0; x < ar.length; x++) {
-          var tok = ar[x].split("\t");
-          if (
-            tok.length > 1 &&
-            tok[1] === "2ZS_Lyrics" &&
-            tok[2] === "notes" &&
-            (text !== tok[3] || lastDetectMultine !== detectMultiLine)
-          ) {
-            TextFromNotes = tok[3];
-            console.log(TextFromNotes);
-            console.log("notes");
-            document.getElementById("textLyr").textContent = TextFromNotes;
-
-            wwr_req_recur_cancel("GET/PROJEXTSTATE/2ZS_Lyrics/notes");
+        document.querySelector("#read").addEventListener("click", function() {
             var section = "notes";
             var key = "read";
-            var value = "n";
+            var value = "y";
+            wwr_start();
             wwr_req("SET/EXTSTATEPERSIST/" + section + "/" + key + "/" + value);
-            // wwr_req_cancel("SET/EXTSTATEPERSIST/"+section+"/"+key+"/"+value);
-          }
-          if (
-            tok.length > 1 &&
-            tok[1] === "2ZS_Lyrics" &&
-            tok[2] === "text" &&
-            (text !== tok[3] || lastDetectMultine !== detectMultiLine)
-          ) {
-            text = tok[3];
-           
-            /*if( lastDetectMultine !== detectMultiLine ) {
+            wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/notes", 3000);
+        });
+
+        document
+            .querySelector("#downloadLyr")
+            .addEventListener("click", function() {
+                if (regionName == "") {
+                    regionName = "temp";
+                }
+                downloadTextFile(regionName);
+                // wwr_req_recur_cancel("GET/PROJEXTSTATE/2ZS_Lyrics/regionName")
+            });
+
+        function downloadTextFile(regionName) {
+            // Open Reaper resource path
+            //wwr_req(encodeURIComponent(REApath));
+
+            // Create text file from array input
+            var textFile = null,
+                makeTextFile = function(arr) {
+                    var arrToText = new Blob([arr], {
+                        type: "text/plain"
+                    });
+                    // If we are replacing a previously generated file we need to
+                    // manually revoke the object URL to avoid memory leaks.
+                    if (textFile !== null) {
+                        window.URL.revokeObjectURL(textFile);
+                    }
+                    textFile = window.URL.createObjectURL(arrToText);
+                    return textFile;
+                };
+
+            // Create page element for link to file
+            var link = document.createElement("a");
+            link.setAttribute("download", regionName + ".txt");
+            // link.href = makeTextFile(jsonFullTable);
+            link.href = makeTextFile(
+                document.getElementById("textLyr").textContent
+            );
+            // Spoof user clicking on new download link
+            document.body.appendChild(link);
+            window.requestAnimationFrame(function() {
+                var event = new MouseEvent("click");
+                link.dispatchEvent(event);
+                document.body.removeChild(link);
+            });
+        }
+
+        //utf8 to 1251 converter (1 byte format, RU/EN support only + any other symbols) by drgluck
+        function utf8_decode(aa) {
+            var bb = '',
+                c = 0;
+            for (var i = 0; i < aa.length; i++) {
+                c = aa.charCodeAt(i);
+                if (c > 127) {
+                    if (c > 1024) {
+                        if (c == 1025) {
+                            c = 1016;
+                        } else if (c == 1105) {
+                            c = 1032;
+                        }
+                        bb += String.fromCharCode(c - 848);
+                    }
+                } else {
+                    bb += aa.charAt(i);
+                }
+            }
+            return bb;
+        }
+
+
+
+
+
+        document
+            .querySelector("#getLyric")
+            .addEventListener("click", function() {
+                let textL = allLyric;
+
+                console.log("textL", textL);
+
+                // let LyricTxt
+
+                // LyricTxt=LyricTxt.encode('cp1251')
+                // # print('*******************')
+                // # print(LyricTxt)
+                // LyricTxt=LyricTxt.decode('latin-1')
+                // # print('*******************')
+                // # print(LyricTxt)
+                // # print('*******************')
+
+
+
+                // # print (LyricTxt)
+                // LyricTxt = allLyric.encode(encoding = 'utf-8')
+                // LyricTxt = allLyric.decode("windows-1251")
+
+                // let encoder = new TextEncoder().encode(allLyric);
+                // console.log("allLyric", encoder);
+                // LyricTxt = new TextDecoder('cp1251').decode(encoder);
+                // console.log("LyricTxt", LyricTxt);
+                // console.log("textL", textL);
+
+                // textL2  = conv(textL)
+
+
+                // console.log("textL2", textL2);
+
+                textL = textL.replaceAll("à", "а");
+                textL = textL.replaceAll("á", "б");
+                textL = textL.replaceAll("â", "в");
+                textL = textL.replaceAll("ã", "г");
+                textL = textL.replaceAll("ä", "д");
+                textL = textL.replaceAll("å", "е");
+                textL = textL.replaceAll("¸", "ё");
+                textL = textL.replaceAll("æ", "ж");
+                textL = textL.replaceAll("ç", "з");
+                textL = textL.replaceAll("è", "и");
+                textL = textL.replaceAll("é", "й");
+                textL = textL.replaceAll("ê", "к");
+                textL = textL.replaceAll("ë", "л");
+                textL = textL.replaceAll("ì", "м");
+                textL = textL.replaceAll("í", "н");
+                textL = textL.replaceAll("î", "о");
+                textL = textL.replaceAll("ï", "п");
+                textL = textL.replaceAll("ð", "р");
+                textL = textL.replaceAll("ñ", "с");
+                textL = textL.replaceAll("ò", "т");
+                textL = textL.replaceAll("ó", "у");
+                textL = textL.replaceAll("ô", "ф");
+                textL = textL.replaceAll("õ", "х");
+                textL = textL.replaceAll("ö", "ц");
+                textL = textL.replaceAll("÷", "ч");
+                textL = textL.replaceAll("ø", "ш");
+                textL = textL.replaceAll("ù", "щ");
+                textL = textL.replaceAll("ú", "ъ");
+                textL = textL.replaceAll("ü", "ь");
+                textL = textL.replaceAll("û", "ы");
+                textL = textL.replaceAll("ý", "э");
+                textL = textL.replaceAll("þ", "ю");
+                textL = textL.replaceAll("ÿ", "я");
+
+                textL = textL.replaceAll("À", "А");
+                textL = textL.replaceAll("Á", "Б");
+                textL = textL.replaceAll("Â", "В");
+                textL = textL.replaceAll("Ã", "Г");
+                textL = textL.replaceAll("Ä", "Д");
+                textL = textL.replaceAll("Å", "Е");
+                textL = textL.replaceAll("¨", "Ё");
+                textL = textL.replaceAll("Æ", "Ж");
+                textL = textL.replaceAll("Ç", "З");
+                textL = textL.replaceAll("È", "И");
+                textL = textL.replaceAll("É", "Й");
+                textL = textL.replaceAll("Ê", "К");
+                textL = textL.replaceAll("Ë", "Л");
+                textL = textL.replaceAll("Ì", "М");
+                textL = textL.replaceAll("Í", "Н");
+                textL = textL.replaceAll("Î", "О");
+                textL = textL.replaceAll("Ï", "П");
+                textL = textL.replaceAll("Ð", "Р");
+                textL = textL.replaceAll("Ñ", "С");
+                textL = textL.replaceAll("Ò", "Т");
+                textL = textL.replaceAll("Ó", "У");
+                textL = textL.replaceAll("Ô", "Ф");
+                textL = textL.replaceAll("Õ", "Х");
+                textL = textL.replaceAll("Ö", "Ц");
+                textL = textL.replaceAll("×", "Ч");
+                textL = textL.replaceAll("Ø", "Ш");
+                textL = textL.replaceAll("Ù", "Щ");
+                textL = textL.replaceAll("Ú", "Ъ");
+                textL = textL.replaceAll("Ü", "Ь");
+                textL = textL.replaceAll("Û", "Ы");
+                textL = textL.replaceAll("Ý", "Э");
+                textL = textL.replaceAll("Þ", "Ю");
+                textL = textL.replaceAll("ß", "Я");
+
+
+                textL = textL.replaceAll("³", "і");
+                textL = textL.replaceAll("¿", "ї");
+                textL = textL.replaceAll("º", "є");
+                textL = textL.replaceAll("²", "I");
+
+                textL = textL.replaceAll("Ƹ", "Жё");
+                textL = textL.replaceAll("ѳ", "Сі");
+                textL = textL.replaceAll("", "п’є");
+                textL = textL.replaceAll("ϳ", "Пі");
+                textL = textL.replaceAll("ĳ", "Ді");
+                textL = textL.replaceAll("˸", "Лё");
+                textL = textL.replaceAll("ճ", "Хi");
+                textL = textL.replaceAll("ֳֳ ", "Цi"); //not work...
+                textL = textL.replaceAll("ͳ", "Нi");
+                textL = textL.replaceAll("ª", "Є");
+                textL = textL.replaceAll("ǳ", "Зі");
+                textL = textL.replaceAll("¢", "ў");
+                textL = textL.replaceAll("Ƴ", "Жi");
+                textL = textL.replaceAll("Ҹ", "Тё");
+                textL = textL.replaceAll("׸", "Чё");
+
+                // textL = textL.replaceAll("ͳ", "Нi");
+                // textL = textL.replaceAll("", "Нi");
+                // textL = textL.replaceAll("ͳ", "Нi");
+                // textL = textL.replaceAll("ͳ", "Нi");
+                // textL = textL.replaceAll("", "Нi");
+
+
+
+                textL = textL.replaceAll(` | |`, `\n`);
+                textL = textL.replaceAll(`\n |`, `\n\n`);
+                textL = textL.replaceAll(` |`, ` `);
+                textL = textL.replaceAll(`|`, `-`);
+
+                textL = textL.replaceAll(`\\n\\n-`, `\n\n`);
+                textL = textL.replaceAll(`\\n-`, `\n`);
+                // textL = textL.replaceAll(`-\n`, `\n`);
+
+                // textL=textL.replaceAll(`|`, ``)
+                // textL=textL.replaceAll(new RegExp('\n', "g"), " ")
+                // textL=textL.replaceAll("\n", ``)
+                // textL=textL.replaceAll(` -\n-`, `\n\n`)
+
+                // textL=textL.replaceAll(`|\n|`, `\n`)
+                // textL=textL.replaceAll(` |`, ` `)
+                // textL=textL.replaceAll(`\n|`, `\n`)
+                // textL=textL.replaceAll(`|`, `-`)
+
+                if (textL[0] === "-") {
+                    textL = textL.slice(1);
+                }
+
+                // console.log("textL2", textL);
+                document.getElementById("textLyr").textContent = textL;
+            });
+
+        function razdelit(string, start, finish) {
+            // console.log("string",string)
+            str = string.substring(start, finish);
+
+            strs = str.split(" ");
+            for (i = 0; i < strs.length - 2; i++) {
+                if (strs[i] === "не") {
+                    strs[i + 1] = "не " + strs[i + 1];
+                    strs.splice(i, 1);
+                }
+            }
+
+            // console.log("strs", strs)
+
+            lenStrHalf = Math.floor((strs.length + 1) / 2);
+
+            // console.log("lenStrHalf",lenStrHalf)
+            ttt = strs[lenStrHalf];
+            // console.log("ttt",ttt)
+
+            strs.splice(lenStrHalf, 1);
+            strs[lenStrHalf - 1] = strs[lenStrHalf - 1] + `\n` + ttt;
+
+            strsJoin = strs.join(" ");
+            // console.log("strJoin",strsJoin)
+
+            el = string.substr(0, start) + strsJoin + string.substr(finish);
+            // console.log("el",el)
+            return el;
+        }
+
+        document.querySelector("#copy").addEventListener("click", function() {
+            let eee = document.getElementById("textLyr").textContent;
+            eee = eee.replaceAll("-", "");
+            eee = eee.replaceAll("=", "-");
+            document.getElementById("textSite").textContent = eee;
+        });
+
+        document.querySelector("#start").addEventListener("click", function() {
+            let $el = document.getElementById("textSite").textContent;
+
+            vowels = "ѳYyUuOoAaJjEeiiіїєуеёэоаыяиюIУЕЁЭОАЫЯИЮ"; // ZADAJUTSJA ZDES!!!
+
+            //.split(',')
+            const charsDelete = `,.?!()`; //document.querySelector('#charsDelete').value
+
+            //$el = document.querySelector('#editor').textContent
+            console.log($el)
+            $el = $el.replaceAll(`Припев:\n`, "");
+            $el = $el.replaceAll(`припев:\n`, "");
+            $el = $el.replaceAll(`Припев:`, "");
+            $el = $el.replaceAll(`Пред припев:`, "");
+            // $el = $el.replaceAll(`\n\r`, `\n\n`);
+            $el = $el.replaceAll(`\n\n\n`, "\n\n");
+
+            $el = $el.replace(/          /g, " ");
+            $el = $el.replace(/         /g, " ");
+            $el = $el.replace(/        /g, " ");
+            $el = $el.replace(/       /g, " ");
+            $el = $el.replace(/      /g, " ");
+            $el = $el.replace(/     /g, " ");
+            $el = $el.replace(/    /g, " ");
+            $el = $el.replace(/   /g, " ");
+            $el = $el.replace(/   /g, " ");
+            $el = $el.replace(/  /g, " ");
+            $el = $el.replace(/  /g, " ");
+
+            for (i = 0; i < $el.length; i++) {
+                if (
+                    ($el.substring(i, i + 2) === `. `) &
+                    ($el.substring(i + 3, i + 4) != `\n`)
+                ) {
+                    $el = $el.substr(0, i + 1) + `\n` + $el.substr(i + 2);
+                } else if (
+                    ($el.substring(i, i + 2) === `! `) &
+                    ($el.substring(i + 3, i + 4) != `\n`)
+                ) {
+                    $el = $el.substr(0, i + 1) + `\n` + $el.substr(i + 2);
+                } else if (
+                    ($el.substring(i, i + 2) === `? `) &
+                    ($el.substring(i + 3, i + 4) != `\n`)
+                ) {
+                    $el = $el.substr(0, i + 1) + `\n` + $el.substr(i + 2);
+                }
+            }
+
+            $el = $el.replace(new RegExp(`[${charsDelete}]`, "g"), "");
+
+            $el = $el.replaceAll(" - ", " ");
+            // $el = $el.replaceAll(`-\n`, `\n`);
+            $el = $el.replaceAll(" – ", " ");
+            $el = $el.replaceAll("–", " ");
+
+            $el = $el.replaceAll(" в ", " в_");
+            $el = $el.replaceAll("В ", "В_");
+            $el = $el.replaceAll(" с ", " с_");
+            $el = $el.replaceAll("С ", "С_");
+            $el = $el.replaceAll(" к ", " к_");
+            $el = $el.replaceAll("К ", "К_");
+            $el = $el.replaceAll(" ж ", "_ж ");
+            $el = $el.replaceAll(";", "");
+            $el = $el.replaceAll(":", "");
+            $el = $el.replaceAll('…', "")
+            $el = $el.replaceAll("—", "");
+            $el = $el.replaceAll(" -", "");
+            $el = $el.replaceAll(" - ", "");
+            $el = $el.replaceAll("- ", "");
+            // $el = $el.replaceAll('"', "");
+
+            let posSpaces = [];
+            let posBreakLine = [];
+            let posAbzac = [];
+            let posGlasnye = [];
+            let posUpCase = [];
+            let searchVolwels = new RegExp(`[${vowels}]`, "g");
+            let searchVolwel = new RegExp(`[${vowels}]`);
+            let upCase = false;
+            //debugger 
+
+            if ($el.substring($el.length, $el.length + 1) != `\n`) {
+                $el = $el + `\n`;
+            }
+
+            for (i = 0; i < $el.length; i++) {
+                if ($el.substring(i, i + 3) === `\n \n`) {
+                    posAbzac.push(i);
+                    i = i + 1;
+                }
+                if ($el.substring(i, i + 1) === `\n`) {
+                    posBreakLine.push(i);
+                    if (posBreakLine.length > 1) {
+                        if (
+                            posBreakLine[posBreakLine.length - 1] -
+                            posBreakLine[posBreakLine.length - 2] >
+                            28
+                        ) {
+                            $el = razdelit(
+                                $el,
+                                posBreakLine[posBreakLine.length - 2],
+                                posBreakLine[posBreakLine.length - 1]
+                            );
+                            i = 0;
+                        }
+                    } else if (posBreakLine.length === 1) {
+                        if (posBreakLine[0] > 28) {
+                            $el = razdelit($el, 0, posBreakLine[0]);
+                            i = 0;
+                        }
+                    }
+                }
+            }
+
+            posBreakLine = [];
+            posAbzac = [];
+            $el = $el.replaceAll(`\n `, `\n`);
+            $el = $el.replaceAll(` \n`, `\n`);
+
+            //<span style="color: #ff6600;">цветом</span>
+
+            for (i = 0; i < $el.length; i++) {
+                // console.log('i',i)
+
+                if ($el.substring(i, i + 3) === `\n \n`) {
+                    upCase = true;
+                    posAbzac.push(i);
+                    i = i + 2;
+                } else if ($el.substring(i, i + 2) === `\n\n` || $el.substring(i, i + 2) === `\n\r`) {
+                    upCase = true;
+                    posAbzac.push(i);
+                    i = i + 1;
+                }
+
+                if (
+                    ($el.substring(i, i + 1) === `\n`) &
+                    ($el.substring(i + 1, i + 2) != " ") &
+                    ($el.substring(i + 1, i + 2) != `\n`) &
+                    ($el.substring(i + 2, i + 3) != `\n`)
+                ) {
+                    posBreakLine.push(i);
+
+                    if (upCase) {
+                        let upp = $el.substring(i + 1, i + 2);
+                        $el =
+                            $el.substr(0, i + 1) + upp.toUpperCase() + $el.substr(i + 2);
+                        upCase = false;
+                        // console.log("upp", upp)
+                    } else {
+                        let low = $el.substring(i + 1, i + 2);
+                        $el =
+                            $el.substr(0, i + 1) + low.toLowerCase() + $el.substr(i + 2);
+
+                        upCase = true;
+                        // console.log("low", low)
+                    }
+                }
+            }
+
+            for (i = 0; i < $el.length; i++) {
+                // console.log('i',i)
+                if ($el.substring(i, i + 1) === ` `) {
+                    posSpaces.push(i);
+                }
+            }
+
+            for (i = 0; i < $el.length; i++) {
+                // console.log('searchVolwels',searchVolwels)
+                if (searchVolwels.test($el.substring(i, i + 1))) {
+                    // console.log('volwels')
+                    posGlasnye.push(i);
+                }
+                if (
+                    $el.substring(i, i + 1) === $el.substring(i, i + 1).toUpperCase()
+                ) {
+                    // console.log('toUpperCase')
+                    posUpCase.push(i);
+                }
+            }
+
+            // console.log("posSpaces", posSpaces)
+            // console.log("posBreakLine", posBreakLine)
+            // console.log("posAbzac", posAbzac)
+            // console.log("posGlasnye", posGlasnye)
+            // console.log("posUpCase", posUpCase)
+            // console.log("$el", $el)
+
+            // создание модели ПЕСНЯ
+            document.getElementById("textLyr").textContent = $el;
+
+            let kuplets = $el.split(`\n \n`);
+            let Pesnja = kuplets.map((kuplet) => {
+                let lines = kuplet.split(`\n`);
+                lines.map((line) => {
+                    words = line.split(` `);
+                    syllables = words.map((word) => {
+                        //return word.split(new RegExp(`(?=[${vowels}])`, "g"))
+                        return word.split(/[ѳYyUuOoAaJjEeiіїєуеёэоаыяиюIУЕЁЭОАЫЯИЮ]/g);
+                    });
+                    // console.log(syllables)
+                });
+            });
+
+            document.querySelector("#textLyr").textContent = $el;
+
+            $el = $el.replaceAll("-", "-=");
+            $el = $el.replaceAll("==", "=");
+            document.querySelector("#textLyr").textContent = $el;
+            a = "ѳ,Y,y,U,u,O,o,A,a,J,j,E,e,і,ї,є,i,у,е,ё,э,о,а,ы,я,и,ю,I,У,Е,Ё,Э,О,А,Ы,Я,И,Ю".split(",");
+
+            //!!!!!!!!!!!!!!!!!!!!!!
+            //debugger
+            let statVolwels = false;
+            for (i = $el.length; i != 0; i--) {
+                if (searchVolwel.test($el.substr(i - 1, 1)) && !statVolwels) {
+                    statVolwels = true;
+                } else if (searchVolwel.test($el.substr(i - 1, 1)) && statVolwels) {
+                    $el = $el.substr(0, i) + `-` + $el.substr(i);
+                }
+
+                if ($el.substr(i - 1, 1) === " ") {
+                    statVolwels = false;
+                } else if ($el.substr(i - 1, 1) === `\n`) {
+                    statVolwels = false;
+                } else if ($el.substr(i - 1, 1) === `=`) {
+                    statVolwels = false;
+                }
+
+                //console.log($el)
+                let f = $el.substr(i - 1, 1);
+                // console.log(f)
+            }
+
+            // a.map(item => $el = star($el, item))
+            // $el = $el.replace(/- /g," ")
+            // //$el = $el.replace(new RegExp(`- `, "g"), " ") // variant
+            // document.querySelector("#textLyr").textContent = $el;
+
+            function star(string, token) {
+                return string.split(token).join(token + "-");
+            }
+            // for (i = 0; i < $el.length; i++) {
+            //     if ($el.substring(i, i + 1).charCodeAt(0) > 1039 && $el.substring(i, i + 1).charCodeAt(0) < 1072) {
+            //         console.log('BIGG letter', $el.substring(i, i + 1), $el.substring(i, i + 1).charCodeAt(0))
+            //         $el = $el.substring(0, i) + `<span style="color: #ff6600;">` + $el.substring(i, i + 1) + `</span>` + $el.substring(i + 1)
+            //         i = i + 37
+            //     }
+
+
+
+            // }
+            //<span style="color: #ff6600;">цветом</span>
+
+            document.getElementById("textLyr").textContent = $el
+
+            // console.log($el)
+        });
+
+
+        $("#textLyr").keydown(function(e) {
+            if (e.keyCode == 13) {
+                //not work
+                console.log('enter')
+                e.shiftKey = true
+                e.ctrlKey = true
+                console.log(e)
+
+            }
+        });
+
+        document
+            .getElementById("textSite")
+            .addEventListener("change", function() {
+                document.getElementById(
+                    "textLyr"
+                ).textContent = document.getElementById("textSite").textContent;
+            });
+    </script>
+
+    <script>
+        //let textP //= document.getElementById('textLyr').textContent
+
+        function getSlogi(textP) {
+            ///var html1=""
+
+            // if (maxbeats == 0) {
+            //   html="<div class=\"text\">(no MIDI lyrics found on track "+lyrictrack+")</div>";
+            // }
+            // else {
+            //   var curm=1, curb=1; curd=1;
+            //   var re=/^(\d+)\.(\d+)\.(\d+)$/.exec(playpos)
+            //   if (re && re.length == 4) {
+            //     curm=re[1];
+            //     curb=re[2];
+            //     curd=re[3];
+            //   }
+
+            // console.log('text', textP)
+
+            kuplets = textP.split(`\n\n`);
+            kuplets = kuplets.map((kuplet) => {
+                return (kuplet += `\n\n`);
+            });
+            // console.log('kuplets', kuplets)
+
+            // tt = kuplets.join('')
+            // console.log('tt', tt)
+
+            str = kuplets.join(``).split(`\n`);
+            str = str.map((st) => {
+                st = st.trim();
+                return (st = ` ` + st + `\n`);
+            });
+            // console.log('str', str)
+            // tt = str.join('')
+            // console.log('tt', tt)
+
+            words = str.join(``).split(/[ ]/g);
+            words = words.map((word) => {
+                return (word = ` ` + word);
+            });
+            words[0] = "";
+            // console.log('words', words)
+
+            // tt = words.join(' ')
+            // console.log('tt', tt)
+
+            slogi = words.join(` `).split(/[ -]/g);
+
+            // console.log('slogi', slogi)
+
+            ///сборка обратно из слогов в текст
+
+            toText = slogi.join(`-`);
+            toText = toText.replace(/--/g, ` `);
+
+            str1 = toText.split(`\n`);
+            str1 = str1.map((st) => {
+                st = st.trim();
+                return (st = st + `\n`);
+            });
+            toText = str1.join("");
+
+            // console.log(toText)
+
+            // console.log(lyrictabla)
+
+            //html1 += textP
+
+            // var lines=0;
+            // debugger
+            // var m=Math.max(curm-lyriclines/4, 1);
+            // for (lines=0; lines < lyriclines; ++lines, ++m) {
+            //   html += "<div class=\"measure\">"+m+"</div>";
+            //   html += "<div class=\"text\">";
+            //   var b;
+            //   for (b=1; b <= maxbeats; ++b) {
+            //     if (b > 1) html += " ";
+            //     if (m == curm && b == curb) html += "<b>";
+            //     if (lyrics[m] && lyrics[m][b])
+            //       html += simple_unescape(lyrics[m][b]).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            //     else html += "&#x2219;";
+            //     if (m == curm && b == curb) html += "</b>";
+            //   }
+            //   html += "</div>";
+            // }
+
+            //  }
+            //document.getElementById("lyrics").innerHTML=html1;
+            //document.getElementById("lyrics").textContent=html1;
+            return slogi;
+        }
+
+        function joinslogi(slogiFin) {
+            toText = slogiFin.join(`-`);
+            toText = toText.replace(/--/g, ` `);
+
+            str1 = toText.split(`\n`);
+            str1 = str1.map((st) => {
+                st = st.trim();
+                return (st = st + `\n`);
+            });
+            toText = str1.join("");
+            return toText;
+        }
+    </script>
+
+    <script>
+        wwr_start();
+        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/text;TRANSPORT", 10);
+        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/regionName", 3000);
+        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/allLyric", 2000);
+        var regionName = "noSet";
+        var text = "";
+        var div = document.getElementById("text");
+        var initial_text = div.innerHTML;
+        // console.log(initial_text)
+        var playstate_elm = document.getElementById("playstate");
+        var colors = [
+            "#333333",
+            "#00FF00",
+            "#FFFF00",
+            "#333333",
+            "#333333",
+            "#FF0000",
+            "#FFFF00",
+        ]; // playstate is 0 for stopped, 1 for playing, 2 for paused, 5 for recording, and 6 for record paused.
+        var detectMultiLine = true;
+        var lastDetectMultine = false;
+
+        function GetTabMaxLength(tab) {
+            //not used
+            let length = 0;
+            for (let i in tab) {
+                let line = tab[i];
+                length = Math.max(length, line.length);
+            }
+            return length;
+        }
+
+        function notesPlusSlogi(midiNotesStart, slogi) {
+            //делает таблицу из массива начала нот и массива слогов
+            //
+            let lyrictabla = [];
+            let n = 0;
+
+            for (i = 0; i <= slogi.length; ++i) {
+                lyrictabla[i] = [];
+
+                lyrictabla[i][1] = slogi[i];
+                // console.log('slogggg', slogi[i])
+
+                if ((slogi[i] !== "") & (slogi[i] !== `\n`)) {
+                    lyrictabla[i][0] = midiNotesStart[n];
+                    n = ++n;
+                    if (n > midiNotesStart.length) {
+                        //console.log("КОЛ-ВО НОТ НЕ СОВПАДАЕТ СО СЛОГАМИ")
+                        //  ЕСЛИ КОЛ-ВО НОТ НЕ СОВПАДАЕТ СО СЛОГАМИ
+                    }
+                    // console.log(lyrictabla[i][0],lyrictabla[i][1])
+                }
+            }
+            //console.log(lyrictabla)
+            proverkaNotesSlogi(midiNotesStart, n);
+            return lyrictabla;
+        }
+
+        function proverkaNotesSlogi(midiNotesStart, n) {
+            //document.getElementById("notes").textContent = midiNotesStart.length
+            //document.getElementById("slogi").textContent = n
+            var x = document.getElementById("message");
+
+            if (midiNotesStart.length > n) {
+                //console.log(`НОТ БОЛЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length}, СЛОГОВ ${n}`)
+                document.getElementById(
+                    "message"
+                ).textContent = `НОТ БОЛЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
+                x.style.color = "red";
+            }
+            if (midiNotesStart.length < n) {
+                //console.log()
+                document.getElementById(
+                    "message"
+                ).textContent = `НОТ МЕНЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
+                x.style.color = "yellow";
+            }
+
+            if (midiNotesStart.length == n) {
+                x.style.color = "green";
+                document.getElementById(
+                    "message"
+                ).textContent = `КОЛИЧЕСТОВ НОТ И СЛОГОВ СОВПАДАЕТ: ${n-1}`;
+            }
+        }
+
+        function wwr_onreply(results) {
+            //let textP = document.getElementById('textLyr').textContent
+            let lyric = [];
+            let txtToScr = "";
+            let slogiFin = [];
+            var ar = results.split("\n");
+            var x;
+            for (x = 0; x < ar.length; x++) {
+                var tok = ar[x].split("\t");
+                if (
+                    tok.length > 1 &&
+                    tok[1] === "2ZS_Lyrics" &&
+                    tok[2] === "notes" &&
+                    (text !== tok[3] || lastDetectMultine !== detectMultiLine)
+                ) {
+                    TextFromNotes = tok[3];
+                    console.log(TextFromNotes);
+                    console.log("notes");
+                    document.getElementById("textLyr").textContent = TextFromNotes;
+
+                    wwr_req_recur_cancel("GET/PROJEXTSTATE/2ZS_Lyrics/notes");
+                    var section = "notes";
+                    var key = "read";
+                    var value = "n";
+                    wwr_req("SET/EXTSTATEPERSIST/" + section + "/" + key + "/" + value);
+                    // wwr_req_cancel("SET/EXTSTATEPERSIST/"+section+"/"+key+"/"+value);
+                }
+                if (
+                    tok.length > 1 &&
+                    tok[1] === "2ZS_Lyrics" &&
+                    tok[2] === "text" &&
+                    (text !== tok[3] || lastDetectMultine !== detectMultiLine)
+                ) {
+                    text = tok[3];
+
+                    /*if( lastDetectMultine !== detectMultiLine ) {
             lastDetectMultine = detectMultiLine;
           }*/
-            if (text === "") {
-              // If no script run on use side
-              div.innerHTML = initial_text;
-            } else {
-              if (text === "--2ZS-NO-TEXT--") {text = ""};
-              // var html = text.split("|");
+                    if (text === "") {
+                        // If no script run on use side
+                        div.innerHTML = initial_text;
+                    } else {
+                        if (text === "--2ZS-NO-TEXT--") {
+                            text = ""
+                        };
+                        // var html = text.split("|");
 
-              var midiNotesStart = text.split("|");
+                        var midiNotesStart = text.split("|");
 
-              //console.log('midiNotesStart',midiNotesStart)
-              // console.log (document.getElementById('textLyr').textContent)
+                        //console.log('midiNotesStart',midiNotesStart)
+                        // console.log (document.getElementById('textLyr').textContent)
 
-              lyric = notesPlusSlogi(
-                midiNotesStart,
-                getSlogi(document.getElementById("textLyr").textContent)
-              );
-              // console.log('lyrictabla')
-              // div.innerHTML = html.join('<br>');
-              var settings = {
-                alignVert: true, // if true, textFit will align vertically using css tables
-                alignHoriz: true, // if true, textFit will set text-align: center
-                multiLine: detectMultiLine, // if true, textFit will not set white-space: no-wrap
-                detectMultiLine: detectMultiLine, // disable to turn off automatic multi-line sensing
-                minFontSize: 10,
-                maxFontSize: 80,
-                //reProcess: true, // if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
-                //alignVertWithFlexbox: true, // if true, textFit will use flexbox for vertical alignment
-              };
-              textFit(div, settings); // Known issue, if browser have been resized, display need to be refreshed.
-            }
-          }
-          if (
-            tok.length > 1 &&
-            tok[1] === "2ZS_Lyrics" &&
-            tok[2] === "regionName" &&
-            (regionName !== tok[3] || lastDetectMultine !== detectMultiLine)
-          ) {
-            regionName = tok[3];
-          }
-
-          if (
-            tok.length > 1 &&
-            tok[1] === "2ZS_Lyrics" &&
-            tok[2] === "allLyric" &&
-            (regionName !== tok[3] || lastDetectMultine !== detectMultiLine)
-          ) {
-            allLyric = tok[3];
-          }
-
-          if (tok.length > 1 && tok[0] === "TRANSPORT") {
-            // TRANSPORT \t playstate \t position_seconds \t isRepeatOn \t position_string \t position_string_beats
-            playstate_elm.style.background = colors[tok[1]];
-            playstate = tok[1];
-            position_seconds = tok[2];
-            isRepeatOn = tok[3];
-            position_string = tok[4];
-            position_string_beats = tok[5];
-            let txtToScr = "";
-
-            // console.log ('playstate', playstate)
-            // console.log ('position_seconds', position_seconds)
-            // console.log ('isRepeatOn', isRepeatOn)
-            // console.log ('position_string', position_string)
-            // console.log ('position_string_beats', position_string_beats)
-            document.getElementById("transport").textContent = position_seconds;
-            // console.log("lyric", lyric)
-
-            //     console.log('position_seconds',position_seconds)
-
-            for (i = 0; i < lyric.length; ++i) {
-              // console.log('i',i)
-              // console.log('lyric[i][0]',lyric[i][0])
-              // console.log('position_seconds',position_seconds)
-              if (lyric[i][0] > position_seconds) {
-                for (n = 0; n < i; ++n) {
-                  // console.log('n',n)
-                  slogiFin.push(lyric[n][1]);
-                  txtToScr = txtToScr + lyric[n][1];
-                  //console.log('txtToScr',txtToScr)
+                        lyric = notesPlusSlogi(
+                            midiNotesStart,
+                            getSlogi(document.getElementById("textLyr").textContent)
+                        );
+                        // console.log('lyrictabla')
+                        // div.innerHTML = html.join('<br>');
+                        var settings = {
+                            alignVert: true, // if true, textFit will align vertically using css tables
+                            alignHoriz: true, // if true, textFit will set text-align: center
+                            multiLine: detectMultiLine, // if true, textFit will not set white-space: no-wrap
+                            detectMultiLine: detectMultiLine, // disable to turn off automatic multi-line sensing
+                            minFontSize: 10,
+                            maxFontSize: 80,
+                            //reProcess: true, // if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
+                            //alignVertWithFlexbox: true, // if true, textFit will use flexbox for vertical alignment
+                        };
+                        textFit(div, settings); // Known issue, if browser have been resized, display need to be refreshed.
+                    }
                 }
-                i = lyric.length;
-              }
+                if (
+                    tok.length > 1 &&
+                    tok[1] === "2ZS_Lyrics" &&
+                    tok[2] === "regionName" &&
+                    (regionName !== tok[3] || lastDetectMultine !== detectMultiLine)
+                ) {
+                    regionName = tok[3];
+                }
+
+                if (
+                    tok.length > 1 &&
+                    tok[1] === "2ZS_Lyrics" &&
+                    tok[2] === "allLyric" &&
+                    (regionName !== tok[3] || lastDetectMultine !== detectMultiLine)
+                ) {
+                    allLyric = tok[3];
+                }
+
+                if (tok.length > 1 && tok[0] === "TRANSPORT") {
+                    // TRANSPORT \t playstate \t position_seconds \t isRepeatOn \t position_string \t position_string_beats
+                    playstate_elm.style.background = colors[tok[1]];
+                    playstate = tok[1];
+                    position_seconds = tok[2];
+                    isRepeatOn = tok[3];
+                    position_string = tok[4];
+                    position_string_beats = tok[5];
+                    let txtToScr = "";
+
+                    // console.log ('playstate', playstate)
+                    // console.log ('position_seconds', position_seconds)
+                    // console.log ('isRepeatOn', isRepeatOn)
+                    // console.log ('position_string', position_string)
+                    // console.log ('position_string_beats', position_string_beats)
+                    document.getElementById("transport").textContent = position_seconds;
+                    // console.log("lyric", lyric)
+
+                    //     console.log('position_seconds',position_seconds)
+
+                    for (i = 0; i < lyric.length; ++i) {
+                        // console.log('i',i)
+                        // console.log('lyric[i][0]',lyric[i][0])
+                        // console.log('position_seconds',position_seconds)
+                        if (lyric[i][0] > position_seconds) {
+                            for (n = 0; n < i; ++n) {
+                                // console.log('n',n)
+                                slogiFin.push(lyric[n][1]);
+                                txtToScr = txtToScr + lyric[n][1];
+                                //console.log('txtToScr',txtToScr)
+                            }
+                            i = lyric.length;
+                        }
+                    }
+
+                    // console.log('!!!!!!slogiFin',slogiFin)
+                    // //document.getElementById('lyrics').textContent = txtToScr
+                    // console.log('joinslogi(slogiFin)',joinslogi(slogiFin))
+                    tText = joinslogi(slogiFin);
+                    // console.log('tText',tText)
+                    document.getElementById("lyrics").textContent = tText;
+                }
             }
-
-            // console.log('!!!!!!slogiFin',slogiFin)
-            // //document.getElementById('lyrics').textContent = txtToScr
-            // console.log('joinslogi(slogiFin)',joinslogi(slogiFin))
-            tText = joinslogi(slogiFin);
-            // console.log('tText',tText)
-            document.getElementById("lyrics").textContent = tText;
-          }
         }
-      }
 
-      /*
+        /*
     div.addEventListener('dblclick', function(e){
       lastDetectMultine = detectMultiLine;
       detectMultiLine = !detectMultiLine;
@@ -1380,5 +1413,6 @@ function utf8_decode (aa) {
 </head>
 <body onLoad="init()"> -->
     <!-- <div id="lyrics" onclick="lyrics_config()">initializing...</div> -->
-  </body>
+</body>
+
 </html>
