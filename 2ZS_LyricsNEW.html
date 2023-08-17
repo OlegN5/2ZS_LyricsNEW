@@ -75,21 +75,21 @@
         }
         
         #app {
-            width: 890px;
+            width: 900px;
             background: rgb(19, 14, 63);
         }
         
         #lyrics {
-            width: 290px
+            width: 300px
         }
         
         #textLyr {
-            width: 290px
+            width: 300px
         }
         
         #textSite {
             color: white;
-            width: 290px
+            width: 300px
         }
     </style>
 </head>
@@ -105,6 +105,9 @@
       </button>
         <button id="copy" type="button" class="btn btn-primary btn-lg">
         copy
+      </button>
+      <button id="capital" type="button" class="btn btn-primary btn-lg">
+        capital
       </button>
         <button hidden id="save" type="button" class="btn btn-primary btn-lg">
         Save2Notes
@@ -792,6 +795,164 @@
             document.getElementById("textSite").textContent = eee;
         });
 
+       
+        document.querySelector("#capital").addEventListener("click", function() {
+            let $el = document.getElementById("textLyr").textContent;
+
+            vowels = "ѳYyUuOoAaJjEeiiіїєуеёэоаыяиюIУЕЁЭОАЫЯИЮ"; // ZADAJUTSJA ZDES!!!
+
+            //.split(',')
+            const charsDelete = `,.?!()`; //document.querySelector('#charsDelete').value
+
+            //$el = document.querySelector('#editor').textContent
+            console.log($el)
+            
+
+            let posSpaces = [];
+            let posBreakLine = [];
+            let posAbzac = [];
+            let posGlasnye = [];
+            let posUpCase = [];
+            let searchVolwels = new RegExp(`[${vowels}]`, "g");
+            let searchVolwel = new RegExp(`[${vowels}]`);
+            let upCase = false;
+            //debugger 
+
+            if ($el.substring($el.length, $el.length + 1) != `\n`) {
+                $el = $el + `\n`;
+            }
+
+            for (i = 0; i < $el.length; i++) {
+                if ($el.substring(i, i + 3) === `\n \n`) {
+                    posAbzac.push(i);
+                    i = i + 1;
+                }
+                if ($el.substring(i, i + 1) === `\n`) {
+                    posBreakLine.push(i);
+                    if (posBreakLine.length > 1) {
+                        if (
+                            posBreakLine[posBreakLine.length - 1] -
+                            posBreakLine[posBreakLine.length - 2] >
+                            28
+                        ) {
+                            $el = razdelit(
+                                $el,
+                                posBreakLine[posBreakLine.length - 2],
+                                posBreakLine[posBreakLine.length - 1]
+                            );
+                            i = 0;
+                        }
+                    } else if (posBreakLine.length === 1) {
+                        if (posBreakLine[0] > 28) {
+                            $el = razdelit($el, 0, posBreakLine[0]);
+                            i = 0;
+                        }
+                    }
+                }
+            }
+
+            posBreakLine = [];
+            posAbzac = [];
+            $el = $el.replaceAll(`\n `, `\n`);
+            $el = $el.replaceAll(` \n`, `\n`);
+
+            //<span style="color: #ff6600;">цветом</span>
+
+            for (i = 0; i < $el.length; i++) {
+                // console.log('i',i)
+
+                if ($el.substring(i, i + 3) === `\n \n`) {
+                    upCase = true;
+                    posAbzac.push(i);
+                    i = i + 2;
+                } else if ($el.substring(i, i + 2) === `\n\n` || $el.substring(i, i + 2) === `\n\r`) {
+                    upCase = true;
+                    posAbzac.push(i);
+                    i = i + 1;
+                }
+
+                if (
+                    ($el.substring(i, i + 1) === `\n`) &
+                    ($el.substring(i + 1, i + 2) != " ") &
+                    ($el.substring(i + 1, i + 2) != `\n`) &
+                    ($el.substring(i + 2, i + 3) != `\n`)
+                ) {
+                    posBreakLine.push(i);
+
+                    if (upCase) {
+                        let upp = $el.substring(i + 1, i + 2);
+                        $el =
+                            $el.substr(0, i + 1) + upp.toUpperCase() + $el.substr(i + 2);
+                        upCase = false;
+                        // console.log("upp", upp)
+                    } else {
+                        let low = $el.substring(i + 1, i + 2);
+                        $el =
+                            $el.substr(0, i + 1) + low.toLowerCase() + $el.substr(i + 2);
+
+                        upCase = true;
+                        // console.log("low", low)
+                    }
+                }
+            }
+
+            for (i = 0; i < $el.length; i++) {
+                // console.log('i',i)
+                if ($el.substring(i, i + 1) === ` `) {
+                    posSpaces.push(i);
+                }
+            }
+
+            for (i = 0; i < $el.length; i++) {
+                // console.log('searchVolwels',searchVolwels)
+                if (searchVolwels.test($el.substring(i, i + 1))) {
+                    // console.log('volwels')
+                    posGlasnye.push(i);
+                }
+                if (
+                    $el.substring(i, i + 1) === $el.substring(i, i + 1).toUpperCase()
+                ) {
+                    // console.log('toUpperCase')
+                    posUpCase.push(i);
+                }
+            }
+
+            // console.log("posSpaces", posSpaces)
+            // console.log("posBreakLine", posBreakLine)
+            // console.log("posAbzac", posAbzac)
+            // console.log("posGlasnye", posGlasnye)
+            // console.log("posUpCase", posUpCase)
+            // console.log("$el", $el)
+
+            
+
+            // a.map(item => $el = star($el, item))
+            // $el = $el.replace(/- /g," ")
+            // //$el = $el.replace(new RegExp(`- `, "g"), " ") // variant
+            // document.querySelector("#textLyr").textContent = $el;
+
+            function star(string, token) {
+                return string.split(token).join(token + "-");
+            }
+            // for (i = 0; i < $el.length; i++) {
+            //     if ($el.substring(i, i + 1).charCodeAt(0) > 1039 && $el.substring(i, i + 1).charCodeAt(0) < 1072) {
+            //         console.log('BIGG letter', $el.substring(i, i + 1), $el.substring(i, i + 1).charCodeAt(0))
+            //         $el = $el.substring(0, i) + `<span style="color: #ff6600;">` + $el.substring(i, i + 1) + `</span>` + $el.substring(i + 1)
+            //         i = i + 37
+            //     }
+
+
+
+            // }
+            //<span style="color: #ff6600;">цветом</span>
+
+            document.getElementById("textLyr").textContent = $el
+
+            // console.log($el)
+        });
+
+
+
         document.querySelector("#start").addEventListener("click", function() {
             let $el = document.getElementById("textSite").textContent;
 
@@ -848,6 +1009,7 @@
             $el = $el.replaceAll("–", " ");
 
             $el = $el.replaceAll(" в ", " в_");
+            $el = $el.replaceAll(" б ", "_б ");
             $el = $el.replaceAll("В ", "В_");
             $el = $el.replaceAll(" с ", " с_");
             $el = $el.replaceAll("С ", "С_");
