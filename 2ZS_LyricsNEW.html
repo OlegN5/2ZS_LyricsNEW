@@ -49,6 +49,23 @@
             border: 1px solid #333;
             /* Параметры рамки */
         }
+
+        .prev {
+            position:fixed;
+            /* Фиксированное положение */
+            
+            left: 50px;
+            /* Расстояние от левого края окна браузера */
+            top: 50px;
+            /* Расстояние сверху */
+            font-size:xx-large;
+            padding: 2px;
+            /* Поля вокруг текста */
+            background: hsl(117, 86%, 39%);
+            /* Цвет фона */
+            border: 1px solid #d7f706;
+            /* Параметры рамки */
+        }
         
         .row {
             top: 120;
@@ -99,7 +116,9 @@
     <div id="text"></div>
     <!-- <div id="text" class="fittext"></div> -->
     <!-- <div id="lyrics" class ='content'>......</div>  -->
+    <div class ='prev' id="prev"><h1>ghbdtn</h1></div>
     <div class="menu">
+        
         <button id="start" type="button" class="btn btn-primary btn-lg">
         start
       </button>
@@ -128,9 +147,10 @@
         <button id="downloadLyr" type="button" class="btn btn-primary btn-lg">
         downloadTxt
       </button>
-        <button id="pasteLyr" type="button" class="btn btn-primary btn-lg">
+        <!-- <button id="pasteLyr" type="button" class="btn btn-primary btn-lg">
         pasteLyric
-      </button>
+      </button> -->
+      <button id="read-html" type="button" class="btn btn-primary btn-lg">pasteLyric</button>
         <br />
         <p id="path"></p>
         <button id="getTxt" type="button" class="btn btn-primary btn-sm" onclick="read()" >
@@ -138,14 +158,19 @@
         </button>
         <input type="file" id="file" accept=".txt" multiple />
         
-        <a id="fileName"></a>
+        
         <a id="message"></a>
         <button id="test0" type="button" class="btn btn-primary btn-sm" >
             test0
         </button>
+        <a id="fileName"></a>
         
         
     </div>
+
+
+
+<!-- <div id="html-output"></div> -->
 
     <div id="app" class="container-fluid">
         <div class="row">
@@ -465,18 +490,53 @@
             //alert(`Last modified: ${file.lastModified}`); // например, 1552830408824
             document.getElementById("textLyr").innerHTML = textLyr;
         }
+        function splitMulti(str, tokens){
+            var tempChar = tokens[0]; // We can use the first token as a temporary join character
+            for(var i = 1; i < tokens.length; i++){
+                str = str.split(tokens[i]).join(tempChar);
+            }
+            str = str.split(tempChar);
+            return str;
+        }           
 
 
         // вставляет содержимое буфера обмена в 3 столбик (текст с сайта, типа оригинальный)
-        document.querySelector("#pasteLyr").addEventListener("click", function() {
-            navigator.clipboard
-                .readText()
-                .then(
-                    cliptext =>
-                    (document.getElementById('textSite').textContent = cliptext),
-                    err => console.log(err)
-                );
-        })
+        // document.querySelector("#pasteLyr").addEventListener("click", function() {
+        //     navigator.clipboard
+        //         .readText()
+        //         .then(
+        //             cliptext =>
+        //             (document.getElementById('textSite').textContent = cliptext),
+        //             err => console.log(err)
+        //         );
+        // })
+// другой метод но он тоже не работает в сафари
+        // document.querySelector("#pasteLyr").addEventListener("click", async (e) => {
+        //         e.preventDefault();
+        //         const cliptext = await navigator.clipboard.readText();
+        //         console.log('Вставленный текст: ', cliptext);
+        //          (document.getElementById('textSite').textContent = cliptext)
+        // });
+        
+// другой метод но он тоже  работает!!!!! в сафари . НО только если копируешь из сафари
+document.getElementById("read-html").addEventListener("click", async clickEvent => {
+    let items = await navigator.clipboard.read();
+    console.log(items)
+    for (let item of items) {
+        if (!item.types.includes("text/html"))
+            continue;
+
+        let reader = new FileReader;
+        reader.addEventListener("load", loadEvent => {
+            document.getElementById("textSite").innerHTML = reader.result;
+        });
+        reader.readAsText(await item.getType("text/html"));
+        break;
+    }
+});
+
+
+
 
 // неработающая функция, которая вставляет в активную миди рипера лирику из браузера
         document.querySelector("#lyr2Midi").addEventListener("click", function() {
@@ -882,7 +942,7 @@
             //<span style="color: #ff6600;">цветом</span>
             $el = $el.substr(0, 1).toUpperCase() + $el.substr(1);
             for (i = 0; i < $el.length; i++) {
-                console.log('i',i)
+                // console.log('i',i)
 
                 if ($el.substring(i, i + 3) === `\n \n`) {
                     
@@ -1234,7 +1294,7 @@
             $el = $el.trim()
             $el = $el.substr(0, 1).toUpperCase() + $el.substr(1);
 
-            document.getElementById("textLyr").textContent = $el
+            document.getElementById("textLyr").textContent = $el+ '\n\n'
             
 
             // console.log($el)
@@ -1423,7 +1483,7 @@
                     
                         lyrictabla[i][0] = midiNotesStart[n];
                         n = ++n;
-                    if (n > midiNotesStart.length)  {
+                    if (n > midiNotesStart.length-1)  {
 
                         lyrictabla[i][0] = 99999999999999999;
                         // n = ++n;
@@ -1552,7 +1612,15 @@
                     (regionName !== tok[3] || lastDetectMultine !== detectMultiLine)
                 ) {
                     regionName = tok[3];
-                }
+                    document.getElementById("fileName").textContent = regionName
+
+                
+            }
+
+                
+
+
+
 
                 if (
                     tok.length > 1 &&
@@ -1612,8 +1680,15 @@
                     // console.log('joinslogi(slogiFin)',joinslogi(slogiFin))
                     
                     tText = joinslogi(slogiFin);
-                    // console.log('tText',tText)
+                    // console.log('tText',tText) 
                     document.getElementById("lyrics").textContent = tText;
+
+                    preview = splitMulti(tText.trimEnd(),['-',' ','\n\n','\n'])
+                    // console.log(preview.length);
+                    preview = preview.filter(n => n)
+                    document.getElementById("prev").textContent = preview[preview.length - 1]
+                    // console.log(tText.split('-'));
+                
                     // document.getElementById(
                     //         "fileName"
                     //     ).textContent = regionName;
@@ -1621,10 +1696,12 @@
                 }
             }
         }
-        // document.querySelector("#test0").addEventListener("click", function() {
+        document.querySelector("#test0").addEventListener("click", function() {
 
-        //     console.log(lyric, position_seconds);
-        // })
+            console.log(lyric, position_seconds);
+            console.log('preview', preview);
+            console.log('tText', tText);
+        })
 
         /*
     div.addEventListener('dblclick', function(e){
