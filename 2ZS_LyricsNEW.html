@@ -115,11 +115,9 @@
         <button hidden id="read" type="button" class="btn btn-primary btn-lg">
         ReadNotes
       </button>
-        <button id="getTxt" type="button" class="btn btn-primary btn-lg" onclick="read()">
-        loadTxt
-      </button>
+        
         <button id="getTxtSuper" type="button" class="btn btn-primary btn-lg" onclick="readSuper()">
-        loadTxtSuper
+        GetTxtSuper
       </button>
         <button id="getLyric" type="button" class="btn btn-primary btn-lg">
         getMidiLyric
@@ -135,8 +133,18 @@
       </button>
         <br />
         <p id="path"></p>
-        <input type="file" id="file" accept=".txt" multiple/>
+        <button id="getTxt" type="button" class="btn btn-primary btn-sm" onclick="read()" >
+            GetTxt
+        </button>
+        <input type="file" id="file" accept=".txt" multiple />
+        
+        <a id="fileName"></a>
         <a id="message"></a>
+        <button id="test0" type="button" class="btn btn-primary btn-sm" >
+            test0
+        </button>
+        
+        
     </div>
 
     <div id="app" class="container-fluid">
@@ -146,10 +154,14 @@
             <p></p>
             <p></p>
             <p></p>
-            <p></p>
+            <p>
+            <div id="11" class="col-4 content">lyrics</div>
+            <div id="22" class="col-4 content">textLyr</div>
+            <div id="33" class="col-4 content">textSite</div>
+            </p>
             <div id="lyrics" class="col-4 content"></div>
             <div id="textLyr" class="col-4 content" contenteditable="true"></div>
-            <div id="textSite" class="col-4 content" contenteditable="true">ля того чтобы
+            <div id="textSite" class="col-4 content" contenteditable="true"> ля того чтобы
                 очистить барабан от
                 Накипи используйте обычную
                 лимонную кислоту
@@ -394,14 +406,8 @@
         document.querySelector('#textSite').addEventListener("paste", function(e) {
             e.preventDefault();
             var text = e.clipboardData.getData("text/plain");
-
-
-
             document.execCommand("insertHTML", false, text);
         });
-
-
-
 
 
         function readSuper() {
@@ -410,12 +416,12 @@
                 regionName = "temp";
             }
 
-
             jQuery(document).ready(function($) {
                 $.ajax({
-                    url: `http://172.20.10.3:7000/midiText/${regionName}.txt`,
+                    url: `http://localhost:7000/midiText/${regionName}.txt`,
                     success: function(data) {
-                        //console.log(data); // Выведет содержимое файла в консоль
+                        console.log('data')
+                        console.log(data); // Выведет содержимое файла в консоль
                         document.getElementById("textLyr").textContent = data
                     }
                 });
@@ -461,21 +467,18 @@
         }
 
 
-
+        // вставляет содержимое буфера обмена в 3 столбик (текст с сайта, типа оригинальный)
         document.querySelector("#pasteLyr").addEventListener("click", function() {
             navigator.clipboard
                 .readText()
                 .then(
-
                     cliptext =>
                     (document.getElementById('textSite').textContent = cliptext),
                     err => console.log(err)
-
                 );
-
         })
 
-
+// неработающая функция, которая вставляет в активную миди рипера лирику из браузера
         document.querySelector("#lyr2Midi").addEventListener("click", function() {
 
             lyr2Reaper = document.getElementById("textLyr").textContent;
@@ -1096,7 +1099,7 @@
             $el = $el.replaceAll(` \n`, `\n`);
 
             //<span style="color: #ff6600;">цветом</span>
-            $el = $el.substr(0, 1).toUpperCase() + $el.substr(1);
+            
             for (i = 0; i < $el.length; i++) {
                 // console.log('i',i)
 
@@ -1228,8 +1231,11 @@
 
             // }
             //<span style="color: #ff6600;">цветом</span>
+            $el = $el.trim()
+            $el = $el.substr(0, 1).toUpperCase() + $el.substr(1);
 
             document.getElementById("textLyr").textContent = $el
+            
 
             // console.log($el)
         });
@@ -1364,10 +1370,15 @@
     </script>
 
     <script>
+        
         wwr_start();
-        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/text;TRANSPORT", 10);
+        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/text", 1000);
+        wwr_req_recur("TRANSPORT", 20);
         wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/regionName", 3000);
         wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/allLyric", 2000);
+        // slogiFinRezerv = []
+        // tText=''
+        // let slogiFin = [];
         var regionName = "noSet";
         var text = "";
         var div = document.getElementById("text");
@@ -1409,16 +1420,26 @@
                 // console.log('slogggg', slogi[i])
 
                 if ((slogi[i] !== "") & (slogi[i] !== `\n`)) {
-                    lyrictabla[i][0] = midiNotesStart[n];
-                    n = ++n;
+                    
+                        lyrictabla[i][0] = midiNotesStart[n];
+                        n = ++n;
+                    if (n > midiNotesStart.length)  {
+
+                        lyrictabla[i][0] = 99999999999999999;
+                        // n = ++n;
+                        // i = slogi.length
+
+                    }
+                    
                     if (n > midiNotesStart.length) {
+                        // console.log(lyrictabla);
                         //console.log("КОЛ-ВО НОТ НЕ СОВПАДАЕТ СО СЛОГАМИ")
                         //  ЕСЛИ КОЛ-ВО НОТ НЕ СОВПАДАЕТ СО СЛОГАМИ
                     }
                     // console.log(lyrictabla[i][0],lyrictabla[i][1])
                 }
             }
-            //console.log(lyrictabla)
+            // console.log(lyrictabla)
             proverkaNotesSlogi(midiNotesStart, n);
             return lyrictabla;
         }
@@ -1428,18 +1449,19 @@
             //document.getElementById("slogi").textContent = n
             var x = document.getElementById("message");
 
+
             if (midiNotesStart.length > n) {
                 //console.log(`НОТ БОЛЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length}, СЛОГОВ ${n}`)
                 document.getElementById(
                     "message"
-                ).textContent = `НОТ БОЛЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
+                ).textContent = `НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
                 x.style.color = "red";
             }
             if (midiNotesStart.length < n) {
                 //console.log()
                 document.getElementById(
                     "message"
-                ).textContent = `НОТ МЕНЬШЕ СЛОГОВ - НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
+                ).textContent = `НОТ: ${midiNotesStart.length-1}, СЛОГОВ ${n-1}`;
                 x.style.color = "yellow";
             }
 
@@ -1453,8 +1475,9 @@
 
         function wwr_onreply(results) {
             //let textP = document.getElementById('textLyr').textContent
-            let lyric = [];
-            let txtToScr = "";
+            // console.log(results)
+            // let lyric = []; // раньше обнулял ... увеличил интервал запраса текста и он стал мигать. Убрал очищение- перестал исчезать
+            // let txtToScr = "";
             let slogiFin = [];
             var ar = results.split("\n");
             var x;
@@ -1538,9 +1561,12 @@
                     (regionName !== tok[3] || lastDetectMultine !== detectMultiLine)
                 ) {
                     allLyric = tok[3];
+                    // console.log(allLyric);
                 }
 
-                if (tok.length > 1 && tok[0] === "TRANSPORT") {
+                if (tok.length > 1 && 
+                    tok[0] === "TRANSPORT"
+                ) {
                     // TRANSPORT \t playstate \t position_seconds \t isRepeatOn \t position_string \t position_string_beats
                     playstate_elm.style.background = colors[tok[1]];
                     playstate = tok[1];
@@ -1561,29 +1587,44 @@
                     //     console.log('position_seconds',position_seconds)
 
                     for (i = 0; i < lyric.length; ++i) {
-                        // console.log('i',i)
-                        // console.log('lyric[i][0]',lyric[i][0])
-                        // console.log('position_seconds',position_seconds)
-                        if (lyric[i][0] > position_seconds) {
+                        //текст на экране исчезает из-за того что нижеследующее условие не выполняется, 
+                        // следовательно массив с текстом для вывода не формируется, а предыдущий стирается
+                        // решил частично.... на уровне функции формирования таблицы лирики с таймкодом notesPlusSlogi()
+                        // console.log('i!!!!',i)
+                        
+                        if (parseFloat(lyric[i][0]) > parseFloat(position_seconds)) {
+                            // console.log("i",i);
+                            // console.log('lyric[i][0]',lyric[i][0])
+                            // console.log('position_seconds',position_seconds)
                             for (n = 0; n < i; ++n) {
                                 // console.log('n',n)
-                                slogiFin.push(lyric[n][1]);
-                                txtToScr = txtToScr + lyric[n][1];
-                                //console.log('txtToScr',txtToScr)
+                                slogiFin.push(lyric[n][1]);// формирования текста для вывоа на экран
+                              
+                                txtToScr = txtToScr + lyric[n][1];// старый вариант вывода, недоделаный
+                                // console.log('txtToScr',txtToScr)
                             }
-                            i = lyric.length;
+                            i = lyric.length; // брейк цикла
                         }
                     }
 
                     // console.log('!!!!!!slogiFin',slogiFin)
                     // //document.getElementById('lyrics').textContent = txtToScr
                     // console.log('joinslogi(slogiFin)',joinslogi(slogiFin))
+                    
                     tText = joinslogi(slogiFin);
                     // console.log('tText',tText)
                     document.getElementById("lyrics").textContent = tText;
+                    // document.getElementById(
+                    //         "fileName"
+                    //     ).textContent = regionName;
+                    //     x.style.color = "blue";
                 }
             }
         }
+        // document.querySelector("#test0").addEventListener("click", function() {
+
+        //     console.log(lyric, position_seconds);
+        // })
 
         /*
     div.addEventListener('dblclick', function(e){
