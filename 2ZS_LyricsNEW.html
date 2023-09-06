@@ -34,6 +34,7 @@
             /* height: 600px; */
             /* white-space:break-spaces */
         }
+
         
         .menu {
             position: fixed;
@@ -58,7 +59,7 @@
             /* Расстояние от левого края окна браузера */
             bottom: 50px;
             /* Расстояние сверху */
-            font-size:150px;
+            font-size: 60px;
             padding: 2px;
             /* Поля вокруг текста */
             background: hsl(117, 86%, 39%);
@@ -86,6 +87,13 @@
             top: 0;
             left: 0;
         }
+        mark {
+            /* background-color: rgb(196, 206, 13); */
+            /* color: rgb(242, 96, 96); */
+            /* writing-mode: vertical-rl; */
+            justify-content: left
+
+            }
         
         a {
             color: #ea8400;
@@ -153,10 +161,16 @@
       <button id="read-html" type="button" class="btn btn-primary btn-lg">pasteLyric</button>
         <br />
         <p id="path"></p>
-        <button id="getTxt" type="button" class="btn btn-primary btn-sm" onclick="read()" >
+        <button id="getTxt" type="button" class="btn btn-primary btn-sm" onclick="readS()" >
             GetTxt
         </button>
         <input type="file" id="file" accept=".txt" multiple />
+        
+            <input type="checkbox" id="showBig" name="showBig" checked />
+            <label for="scales">showBig</label>
+          
+        
+
         
         
         <a id="message"></a>
@@ -456,6 +470,29 @@
 
 
         function read() {
+            //document.getElementById("file").value = "C:\fakepath\nnn.txt"
+
+            var file = document.getElementById("file").files[0];
+            // var path = document.getElementById("file").value
+            // document.getElementById("path").textContent=file
+            //   console.log("Loading \""+file.name+"\"... ("+Math.round(file.size/1024)+"kB)")
+
+            //   if(file.size>=256*1024){
+            //     if(!confirm("File size is "+Math.round(file.size/1024)+"kBytes! Really want to read it?")){
+            //       console.log("Aborting loading file...")
+            //       return
+            //   }
+            //   }
+            var reader = new FileReader();
+            reader.onload = function() {
+                console.log("File readed!");
+                document.getElementById("textLyr").innerHTML = reader.result;
+            };
+            console.log("Starting reading file...");
+            reader.readAsText(file);
+        }
+
+        function readS() {
             //document.getElementById("file").value = "C:\fakepath\nnn.txt"
 
             var file = document.getElementById("file").files[0];
@@ -1227,7 +1264,7 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
             // console.log("$el", $el)
 
             // создание модели ПЕСНЯ
-            document.getElementById("textLyr").textContent = $el;
+            // document.getElementById("textLyr").textContent = $el;
 
             let kuplets = $el.split(`\n \n`);
             let Pesnja = kuplets.map((kuplet) => {
@@ -1242,11 +1279,11 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                 });
             });
 
-            document.querySelector("#textLyr").textContent = $el;
+            // document.querySelector("#textLyr").textContent = $el;
 
             $el = $el.replaceAll("-", "-=");
             $el = $el.replaceAll("==", "=");
-            document.querySelector("#textLyr").textContent = $el;
+            // document.querySelector("#textLyr").textContent = $el;
             a = "ѳ,Y,y,U,u,O,o,A,a,J,j,E,e,і,ї,є,i,у,е,ё,э,о,а,ы,я,и,ю,I,У,Е,Ё,Э,О,А,Ы,Я,И,Ю".split(",");
 
             //!!!!!!!!!!!!!!!!!!!!!!
@@ -1295,7 +1332,25 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
             $el = $el.substr(0, 1).toUpperCase() + $el.substr(1);
 
             document.getElementById("textLyr").textContent = $el+ '\n\n'
+
+            $el = document.getElementById("textLyr").textContent
+            // let kuplets1 = $el.split(`\n \n`);
+            // let Pesnja1 = kuplets1.map((kuplet) => {
+            //     let lines1 = kuplets1.split(`\n`);
+            //     lines1.map((line) => {
+                   
+            //     });
+            // });
+
+
+
+
+
             
+
+
+
+
 
             // console.log($el)
         });
@@ -1425,6 +1480,12 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                 return (st = st + `\n`);
             });
             toText = str1.join("");
+            // if (toText[toText.length-2] == '-'){
+            //     toText = toText[0,toText.length-2]+'\n'
+            //     console.log('!!!');
+            // }
+            toText = toText.replace('-\n', ` \n`)
+
             return toText;
         }
     </script>
@@ -1681,26 +1742,88 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                     
                     tText = joinslogi(slogiFin);
                     // console.log('tText',tText) 
-                    document.getElementById("lyrics").textContent = tText;
+                    // document.getElementById("lyrics").textContent = tText ;
 
-                    preview = splitMulti(tText.trimEnd(),['-',' ','\n\n','\n'])
-                    // console.log(preview.length);
-                    preview = preview.filter(n => n)
-                    document.getElementById("prev").textContent = preview[preview.length - 1]
-                    // console.log(tText.split('-'));
-                
-                    // document.getElementById(
-                    //         "fileName"
-                    //     ).textContent = regionName;
-                    //     x.style.color = "blue";
+                    ttt = document.getElementById("textLyr").textContent;
+                    // document.getElementById("lyrics").innerHTML = tText.slice (0, tText.lastIndexOf("-")) + 
+                    // '<mark>' + tText.slice (tText.lastIndexOf("-"), tText.length) + '</mark>' + 
+                    // ttt.slice(tText.length-1, ttt.length) ;
+                    for (x = 0; x < 5; x++) {
+                        if (tText.slice(-1) == '\n') {
+                            tText=tText.slice (0, tText.length-1)
+                            // console.log(tText);
+                        }
+                        if (tText.slice(-1) == ' ') {
+                            tText=tText.slice (0, tText.length-1)
+                            // console.log(tText);
+                        }
+                        
+                    }
+                    // tText = tText.slice(0,-1)
+
+                    tText.lastIndexOf("\n")
+
+                   if (tText.lastIndexOf("-") > tText.lastIndexOf(" ")) {
+                    last = tText.lastIndexOf("-")
+                   } else {
+                    last = tText.lastIndexOf(" ")
+                   }
+
+                   if (last > tText.lastIndexOf("\n")) {
+                    last = last
+                   } else {
+                    last = tText.lastIndexOf("\n") + 1
+                   }
+
+
+
+                    document.getElementById("lyrics").innerHTML = 
+                        tText.slice (0, last) + 
+                            '<mark>' +
+                        tText.slice (last, tText.length) + 
+                            '</mark>' +
+                    ttt.slice(tText.length, ttt.length) ;
+                    console.log(tText.lastIndexOf("-", ' '));
+
+
+
+
+                    // console.log( document.getElementById("lyrics").textContent);
+                    
+                   if  (document.getElementById("showBig").checked){
+                    document.getElementById("prev").hidden = false
+                        // previewSl = splitMulti(tText.trimEnd(),['-',' ','\n\n','\n'])
+                        previewStr = splitMulti(tText.trimEnd(),['\n'])
+                        
+                        // console.log(preview.length);
+                        // previewSl = previewSl.filter(n => n) 
+                        previewStr = previewStr.filter(n => n)
+                        // document.getElementById("prev").textContent = previewSl[previewSl.length - 1] 
+                        document.getElementById("prev").textContent = previewStr[previewStr.length - 1]
+                        // console.log(tText.split('-'));
+                    
+                        // document.getElementById( 
+                        //         "fileName"
+                        //     ).textContent = regionName;
+                        //     x.style.color = "blue";
+                   } else {
+                    document.getElementById("prev").hidden = true
+
+                   }
+
+                    
+
+
                 }
             }
         }
         document.querySelector("#test0").addEventListener("click", function() {
 
             console.log(lyric, position_seconds);
-            console.log('preview', preview);
+            console.log('previewStr', previewStr);
             console.log('tText', tText);
+
+           
         })
 
         /*
