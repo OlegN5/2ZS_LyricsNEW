@@ -40,15 +40,13 @@
             position: fixed;
             /* Фиксированное положение */
             right: 10px;
+            
             /* Расстояние от правого края окна браузера */
-            top: 30;
+            top: 30px;
             /* Расстояние сверху */
             padding: 2px;
             /* Поля вокруг текста */
-            background: #333333;
-            /* Цвет фона */
-            border: 1px solid #333;
-            /* Параметры рамки */
+           
         }
 
         .prev {
@@ -70,6 +68,25 @@
         
         .row {
             top: 120;
+        }
+
+        #transport {
+            position:fixed;
+            /* Фиксированное положение */
+            
+            left: 50px;
+            /* Расстояние от левого края окна браузера */
+            top: 50px;
+            /* Расстояние сверху */
+            font-size:20px;
+            padding: 2px;
+            /* Поля вокруг текста */
+            background: hsl(117, 86%, 39%);
+            /* Цвет фона */
+            border: 1px solid #d7f706;
+            /* Параметры рамки */
+
+
         }
         
         #text {
@@ -120,11 +137,12 @@
 </head>
 
 <body>
-    <div id="transport">.........</div>
-    <div id="text"></div>
+    
+    <!-- <div id="text"></div> -->
     <!-- <div id="text" class="fittext"></div> -->
     <!-- <div id="lyrics" class ='content'>......</div>  -->
     <div class ='prev' id="prev"><h1>ghbdtn</h1></div>
+    <div id="transport">.........</div>
     <div class="menu">
         
         <button id="start" type="button" class="btn btn-primary btn-lg">
@@ -168,11 +186,7 @@
         
             <input type="checkbox" id="showBig" name="showBig" checked />
             <label for="scales">showBig</label>
-          
-        
-
-        
-        
+       
         <a id="message"></a>
         <button id="test0" type="button" class="btn btn-primary btn-sm" >
             test0
@@ -193,254 +207,77 @@
             <p></p>
             <p></p>
             <p></p>
+            <p></p>
+            <p></p>
             <p>
             <div id="11" class="col-4 content">lyrics</div>
             <div id="22" class="col-4 content">textLyr</div>
             <div id="33" class="col-4 content">textSite</div>
             </p>
             <div id="lyrics" class="col-4 content"></div>
-            <div id="textLyr" class="col-4 content" contenteditable="true"></div>
-            <div id="textSite" class="col-4 content" contenteditable="true"> ля того чтобы
-                очистить барабан от
-                Накипи используйте обычную
-                лимонную кислоту
-                Ее понадобится 100-150 г
-                эта простая
-                Процедура очистки
-                
-                стиральной машины LG от
-                Накипи позволяет
-                значительно удлинить
-                Срок работы
-                вашего устройства
-                Состав лимонной кислоты
-                абсолютно безвреден
-                Для всех без исключения
-                деталей и агрегатов
-                Но отлично
-                подходит для
-                Удаления накипи
-                
-            </div>
+            <div id="textLyr" class="col-4 content" contenteditable="true">Пе-ред бо-ем ти-хи-е
+те-плы-е ве-че-ра
+И по-крыт тре-во-жно-ю
+сон ти-ши-ной
+У вче-ра-шних ма-льчи-ков
+ги-мна-сте-рки но-вы-е
+И пи-сьмо от ма-мы с_со-бой
+
+Здесь всю ночь
+го-ре-ла зве-зда о-ди-но-ка-я
+И ту-ман про-зра-чный
+ле-жит у ре-ки
+Здесь бе-ре-зы бе-лы-е
+тра-вы вы-со-ки-е
+Враг не до-лжен
+да-льше про-йти
+
+А за-ка-ты а-лы-е а-лы-е а-лы-е
+пе-ред бо-ем вы-стре-лы
+Не слы-шны
+не об э-том вме-сте
+С_то-бо-ю ме-чта-ли мы
+за че-ты-ре дня до во-йны
+
+По-лы-хну-ли взры-вы и
+не-бо о-бру-ши-лось
+Со-лнца не ви-дать пря-чет
+ды-ма сте-на
+Спят бе-ре-зы бе-лы-е
+тра-вы вы-со-ки-е
+За-бра-ла вас ма-льчи-ки во-йна
+
+О-тсто-я-ли ро-ди-ну
+в_го-ды су-ро-вы-е
+Нет сле-дов да-ле-ких
+до-рог бо-е-вых
+Ну-жно что-бы по-мни-ли
+мы с_то-бо-ю по-мни-ли
+И-ме-на ге-ро-ев сво-их
+
+А за-ка-ты а-лы-е а-лы-е а-лы-е
+пе-ред бо-ем вы-стре-лы
+Не слы-шны
+не об э-том вме-сте
+С_то-бо-ю ме-чта-ли мы
+за че-ты-ре дня до во-йны
+
+А за-ка-ты а-лы-е а-лы-е а-лы-е
+пе-ред бо-ем вы-стре-лы
+Не слы-шны
+не об э-том вме-сте
+С_то-бо-ю ме-чта-ли мы
+за че-ты-ре дня до во-йны
+
+                </div>
+            <div id="textSite" class="col-4 content" contenteditable="true"></div>
         </div>
     </div>
 
     <div id="playstate"></div>
 
     <script src="main.js"></script>
-
-    <!-- <script src="bundle.js"></script> -->
-    <script>
-        (function(root, factory) {
-            "use strict";
-            if (typeof define === "function" && define.amd) {
-                define([], factory);
-            } else if (typeof exports === "object") {
-                module.exports = factory();
-            } else {
-                root.textFit = factory();
-            }
-        })
-        (typeof global === "object" ? global : this, function() {
-            "use strict";
-            var defaultSettings = {
-                alignVert: false,
-                alignHoriz: false,
-                multiLine: false,
-                detectMultiLine: true,
-                minFontSize: 6,
-                maxFontSize: 80,
-                reProcess: true,
-                widthOnly: false,
-                alignVertWithFlexbox: false,
-            };
-            return function textFit(els, options) {
-                if (!options) options = {};
-                var settings = {};
-                for (var key in defaultSettings) {
-                    if (options.hasOwnProperty(key)) {
-                        settings[key] = options[key];
-                    } else {
-                        settings[key] = defaultSettings[key];
-                    }
-                }
-                if (typeof els.toArray === "function") {
-                    els = els.toArray();
-                }
-                var elType = Object.prototype.toString.call(els);
-                if (
-                    elType !== "[object Array]" &&
-                    elType !== "[object NodeList]" &&
-                    elType !== "[object HTMLCollection]"
-                ) {
-                    els = [els];
-                }
-                for (var i = 0; i < els.length; i++) {
-                    processItem(els[i], settings);
-                }
-            };
-
-            function processItem(el, settings) {
-                if (!isElement(el) ||
-                    (!settings.reProcess && el.getAttribute("textFitted"))
-                ) {
-                    return false;
-                }
-                if (!settings.reProcess) {
-                    el.setAttribute("textFitted", 1);
-                }
-                var innerSpan, originalHeight, originalHTML, originalWidth;
-                var low, mid, high;
-                originalHTML = el.innerHTML;
-                originalWidth = innerWidth(el);
-                originalHeight = innerHeight(el);
-                if (!originalWidth || (!settings.widthOnly && !originalHeight)) {
-                    if (!settings.widthOnly)
-                        throw new Error(
-                            "Set a static height and width on the target element " +
-                            el.outerHTML +
-                            " before using textFit!"
-                        );
-                    else
-                        throw new Error(
-                            "Set a static width on the target element " +
-                            el.outerHTML +
-                            " before using textFit!"
-                        );
-                }
-                if (originalHTML.indexOf("textFitted") === -1) {
-                    innerSpan = document.createElement("span");
-                    innerSpan.className = "textFitted";
-                    innerSpan.style["display"] = "inline-block";
-                    innerSpan.innerHTML = originalHTML;
-                    el.innerHTML = "";
-                    el.appendChild(innerSpan);
-                } else {
-                    innerSpan = el.querySelector("span.textFitted");
-                    if (hasClass(innerSpan, "textFitAlignVert")) {
-                        innerSpan.className = innerSpan.className.replace(
-                            "textFitAlignVert",
-                            ""
-                        );
-                        innerSpan.style["height"] = "";
-                        el.className.replace("textFitAlignVertFlex", "");
-                    }
-                }
-                if (settings.alignHoriz) {
-                    el.style["text-align"] = "center";
-                    innerSpan.style["text-align"] = "center";
-                }
-                var multiLine = settings.multiLine;
-                if (
-                    settings.detectMultiLine &&
-                    !multiLine &&
-                    innerSpan.scrollHeight >=
-                    parseInt(window.getComputedStyle(innerSpan)["font-size"], 10) * 2
-                ) {
-                    multiLine = true;
-                }
-                if (!multiLine) {
-                    el.style["white-space"] = "nowrap";
-                }
-                low = settings.minFontSize;
-                high = settings.maxFontSize;
-                var size = low;
-                while (low <= high) {
-                    mid = (high + low) >> 1;
-                    innerSpan.style.fontSize = mid + "px";
-                    if (
-                        innerSpan.scrollWidth <= originalWidth &&
-                        (settings.widthOnly || innerSpan.scrollHeight <= originalHeight)
-                    ) {
-                        size = mid;
-                        low = mid + 1;
-                    } else {
-                        high = mid - 1;
-                    }
-                }
-                if (innerSpan.style.fontSize != size + "px")
-                    innerSpan.style.fontSize = size + "px";
-                if (settings.alignVert) {
-                    addStyleSheet();
-                    var height = innerSpan.scrollHeight;
-                    if (window.getComputedStyle(el)["position"] === "static") {
-                        el.style["position"] = "relative";
-                    }
-                    if (!hasClass(innerSpan, "textFitAlignVert")) {
-                        innerSpan.className = innerSpan.className + " textFitAlignVert";
-                    }
-                    innerSpan.style["height"] = height + "px";
-                    if (
-                        settings.alignVertWithFlexbox &&
-                        !hasClass(el, "textFitAlignVertFlex")
-                    ) {
-                        el.className = el.className + " textFitAlignVertFlex";
-                    }
-                }
-            }
-
-            function innerHeight(el) {
-                var style = window.getComputedStyle(el, null);
-                return (
-                    el.clientHeight -
-                    parseInt(style.getPropertyValue("padding-top"), 10) -
-                    parseInt(style.getPropertyValue("padding-bottom"), 10)
-                );
-            }
-
-            function innerWidth(el) {
-                var style = window.getComputedStyle(el, null);
-                return (
-                    el.clientWidth -
-                    parseInt(style.getPropertyValue("padding-left"), 10) -
-                    parseInt(style.getPropertyValue("padding-right"), 10)
-                );
-            }
-
-            function isElement(o) {
-                return typeof HTMLElement === "object" ?
-                    o instanceof HTMLElement :
-                    o &&
-                    typeof o === "object" &&
-                    o !== null &&
-                    o.nodeType === 1 &&
-                    typeof o.nodeName === "string";
-            }
-
-            function hasClass(element, cls) {
-                return (" " + element.className + " ").indexOf(" " + cls + " ") > -1;
-            }
-
-            function addStyleSheet() {
-                if (document.getElementById("textFitStyleSheet")) return;
-                var style = [
-                    ".textFitAlignVert{",
-                    "position: absolute;",
-                    "top: 0; right: 0; bottom: 0; left: 0;",
-                    "margin: auto;",
-                    "display: flex;",
-                    "justify-content: center;",
-                    "flex-direction: column;",
-                    "}",
-                    ".textFitAlignVertFlex{",
-                    "display: flex;",
-                    "}",
-                    ".textFitAlignVertFlex .textFitAlignVert{",
-                    "position: static;",
-                    "}",
-                ].join("");
-
-
-                var css = document.createElement("style");
-                css.type = "text/css";
-                css.id = "textFitStyleSheet";
-                css.innerHTML = style;
-                document.body.appendChild(css);
-
-            }
-        });
-    </script>
-
+ 
     <script>
         document.querySelector('#textSite').addEventListener("paste", function(e) {
             e.preventDefault();
@@ -470,19 +307,8 @@
 
 
         function read() {
-            //document.getElementById("file").value = "C:\fakepath\nnn.txt"
-
             var file = document.getElementById("file").files[0];
-            // var path = document.getElementById("file").value
-            // document.getElementById("path").textContent=file
-            //   console.log("Loading \""+file.name+"\"... ("+Math.round(file.size/1024)+"kB)")
-
-            //   if(file.size>=256*1024){
-            //     if(!confirm("File size is "+Math.round(file.size/1024)+"kBytes! Really want to read it?")){
-            //       console.log("Aborting loading file...")
-            //       return
-            //   }
-            //   }
+            
             var reader = new FileReader();
             reader.onload = function() {
                 console.log("File readed!");
@@ -493,19 +319,8 @@
         }
 
         function readS() {
-            //document.getElementById("file").value = "C:\fakepath\nnn.txt"
 
             var file = document.getElementById("file").files[0];
-            // var path = document.getElementById("file").value
-            // document.getElementById("path").textContent=file
-            //   console.log("Loading \""+file.name+"\"... ("+Math.round(file.size/1024)+"kB)")
-
-            //   if(file.size>=256*1024){
-            //     if(!confirm("File size is "+Math.round(file.size/1024)+"kBytes! Really want to read it?")){
-            //       console.log("Aborting loading file...")
-            //       return
-            //   }
-            //   }
             var reader = new FileReader();
             reader.onload = function() {
                 console.log("File readed!");
@@ -715,6 +530,111 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
         }
 
 
+       function UnicodeToWin1251(s) {
+         var DMap = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 11: 11, 12: 12, 13: 13, 14: 14, 15: 15, 16: 16, 17: 17, 18: 18, 19: 19, 20: 20, 21: 21, 22: 22, 23: 23, 24: 24, 25: 25, 26: 26, 27: 27, 28: 28, 29: 29, 30: 30, 31: 31, 32: 32, 33: 33, 34: 34, 35: 35, 36: 36, 37: 37, 38: 38, 39: 39, 40: 40, 41: 41, 42: 42, 43: 43, 44: 44, 45: 45, 46: 46, 47: 47, 48: 48, 49: 49, 50: 50, 51: 51, 52: 52, 53: 53, 54: 54, 55: 55, 56: 56, 57: 57, 58: 58, 59: 59, 60: 60, 61: 61, 62: 62, 63: 63, 64: 64, 65: 65, 66: 66, 67: 67, 68: 68, 69: 69, 70: 70, 71: 71, 72: 72, 73: 73, 74: 74, 75: 75, 76: 76, 77: 77, 78: 78, 79: 79, 80: 80, 81: 81, 82: 82, 83: 83, 84: 84, 85: 85, 86: 86, 87: 87, 88: 88, 89: 89, 90: 90, 91: 91, 92: 92, 93: 93, 94: 94, 95: 95, 96: 96, 97: 97, 98: 98, 99: 99, 100: 100, 101: 101, 102: 102, 103: 103, 104: 104, 105: 105, 106: 106, 107: 107, 108: 108, 109: 109, 110: 110, 111: 111, 112: 112, 113: 113, 114: 114, 115: 115, 116: 116, 117: 117, 118: 118, 119: 119, 120: 120, 121: 121, 122: 122, 123: 123, 124: 124, 125: 125, 126: 126, 127: 127, 1027: 129, 8225: 135, 1046: 198, 8222: 132, 1047: 199, 1168: 165, 1048: 200, 1113: 154, 1049: 201, 1045: 197, 1050: 202, 1028: 170, 160: 160, 1040: 192, 1051: 203, 164: 164, 166: 166, 167: 167, 169: 169, 171: 171, 172: 172, 173: 173, 174: 174, 1053: 205, 176: 176, 177: 177, 1114: 156, 181: 181, 182: 182, 183: 183, 8221: 148, 187: 187, 1029: 189, 1056: 208, 1057: 209, 1058: 210, 8364: 136, 1112: 188, 1115: 158, 1059: 211, 1060: 212, 1030: 178, 1061: 213, 1062: 214, 1063: 215, 1116: 157, 1064: 216, 1065: 217, 1031: 175, 1066: 218, 1067: 219, 1068: 220, 1069: 221, 1070: 222, 1032: 163, 8226: 149, 1071: 223, 1072: 224, 8482: 153, 1073: 225, 8240: 137, 1118: 162, 1074: 226, 1110: 179, 8230: 133, 1075: 227, 1033: 138, 1076: 228, 1077: 229, 8211: 150, 1078: 230, 1119: 159, 1079: 231, 1042: 194, 1080: 232, 1034: 140, 1025: 168, 1081: 233, 1082: 234, 8212: 151, 1083: 235, 1169: 180, 1084: 236, 1052: 204, 1085: 237, 1035: 142, 1086: 238, 1087: 239, 1088: 240, 1089: 241, 1090: 242, 1036: 141, 1041: 193, 1091: 243, 1092: 244, 8224: 134, 1093: 245, 8470: 185, 1094: 246, 1054: 206, 1095: 247, 1096: 248, 8249: 139, 1097: 249, 1098: 250, 1044: 196, 1099: 251, 1111: 191, 1055: 207, 1100: 252, 1038: 161, 8220: 147, 1101: 253, 8250: 155, 1102: 254, 8216: 145, 1103: 255, 1043: 195, 1105: 184, 1039: 143, 1026: 128, 1106: 144, 8218: 130, 1107: 131, 8217: 146, 1108: 186, 1109: 190}
+        
+            var L = []
+            for (var i=0; i<s.length; i++) {
+                var ord = s.charCodeAt(i)
+                if (!(ord in DMap))
+                    throw "Character "+s.charAt(i)+" isn't supported by win1251!"
+                L.push('%' + DMap[ord].toString(16));
+            }
+            return L.join('')
+}
+
+
+/**
+*
+*  UTF-8 data encode / decode
+*  [url]http://www.webtoolkit.info/[/url]
+*
+**/
+ 
+var Utf8 = {
+ 
+ // public method for url encoding
+ encode : function (string) {
+     string = string.replace(/\r\n/g,"\n");
+     var utftext = "";
+
+     for (var n = 0; n < string.length; n++) {
+
+         var c = string.charCodeAt(n);
+
+         if (c < 128) {
+             utftext += String.fromCharCode(c);
+         }
+         else if((c > 127) && (c < 2048)) {
+             utftext += String.fromCharCode((c >> 6) | 192);
+             utftext += String.fromCharCode((c & 63) | 128);
+         }
+         else {
+             utftext += String.fromCharCode((c >> 12) | 224);
+             utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+             utftext += String.fromCharCode((c & 63) | 128);
+         }
+
+     }
+
+     return utftext;
+ },
+
+ // public method for url decoding
+ decode : function (utftext) {
+     var string = "";
+     var i = 0;
+     var c = c1 = c2 = 0;
+
+     while ( i < utftext.length ) {
+
+         c = utftext.charCodeAt(i);
+
+         if (c < 128) {
+             string += String.fromCharCode(c);
+             i++;
+         }
+         else if((c > 191) && (c < 224)) {
+             c2 = utftext.charCodeAt(i+1);
+             string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+             i += 2;
+         }
+         else {
+             c2 = utftext.charCodeAt(i+1);
+             c3 = utftext.charCodeAt(i+2);
+             string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+             i += 3;
+         }
+
+     }
+
+     return string;
+ }
+
+}
+
+// function conv(textFromMidi) {
+//     var iconv = require('iconv-lite');
+
+//     // text = 'Ýé |òî|ðå|ðî | |æèçíü |êàê |ìèã | |Î|ïÿòü |çâó|÷èò |òðó|áû | |ïðè|çûâ|íûé |çîâ | |Ýé |òî|ðå|ðî |òû |è|ëè |áûê | |êà|÷à|åò|ñÿ |÷à|øà |âå|ñîâ | | |Áîã |õðà|íèò |òå|áÿ | |ñìåðòü |ùà|äèò |òå|áÿ | | |Íå|áà |áå|ëûé |ïëà|òîê | |êðîâü |è |æåë|òûé |ïå|ñîê | |Êðèê |îò|÷à|ÿíü|ÿ | |áûê |æè|âà|ÿ |ìè|øåíü | |Ïîä |âîñ|òîð|æåí|íûé |âîé | |òû |èã|ðà|åøü |ñóäü|áîé | |Ïóñòü |íå |çíà|åò |íèê|òî | |÷òî |òâî|ðèò|ñÿ |â_äó|øå | | |Ýé |òî|ðå|ðî | |ñûí |âäî|âû | |Òâîé |êðàñ|íûé |ïëàù |òâîé | |òðà|óð|íûé |ïîê|ðîâ | |Ýé |òî|ðå|ðî |òû | |áó|äåøü |ó|áèò | |Ïîä |ïåñ|íþ | |ìàä|ðèä|ñêèõ |÷à|ñîâ | | |Áîã |õðà|íèò |òå|áÿ | |ñìåðòü |ùà|äèò |òå|áÿ | | |Íå|áà |áå|ëûé |ïëà|òîê | |êðîâü |è |æåë|òûé |ïå|ñîê | |Êðèê |îò|÷à|ÿíü|ÿ | |áûê |æè|âà|ÿ |ìè|øåíü | |Ïîä |âîñ|òîð|æåí|íûé |âîé | |òû |èã|ðà|åøü |ñóäü|áîé | |Ïóñòü |íå |çíà|åò |íè|êòî | |÷òî |òâî|ðèò|ñÿ |â_äó|øå | | |Íå|áà |áå|ëûé |ïëà|òîê | |êðîâü |è |æåë|òûé |ïå|ñîê | |Êðèê |îò|÷à|ÿíü|ÿ | |áûê |æè|âà|ÿ |ìè|øåíü | |Ïîä |âîñ|òîð|æåí|íûé |âîé | |òû |èã|ðà|åøü |ñóäü|áîé | |Ïóñòü |íå |çíà|åò |íè|êòî | |÷òî |òâî|ðèò|ñÿ |â_äó|øå | |'
+
+//     buf = iconv.encode(textFromMidi, 'latin-1');
+
+//     // Convert from an encoded buffer to a js string.
+//     str = iconv.decode(Buffer.from(buf), 'win1251');
+
+//     // Convert from a js string to an encoded buffer.
+//     // buf = iconv.encode("Sample input string", 'win1251');
+
+//     // Check if encoding is supported
+//     iconv.encodingExists("us-ascii")
+
+//     // console.log(buf)
+//     // console.log(str)
+//     return str
+
+// }
+
 
 
 
@@ -752,6 +672,18 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
 
                 // console.log("textL2", textL2);
 
+                // console.log('1', UnicodeToWin1251(textL))
+                    // console.log('2',  utf8_decode(textL))
+                    //     console.log( '3', Utf8.decode(textL))
+                    //         console.log('4', decodeURIComponent(textL.split("").map(function(ch) { return "%"+ch.charCodeAt(0).toString(16); }).join("")))
+
+                // textL = UnicodeToWin1251(textL) 
+                // textL = utf8_decode(textL)
+
+                // textL = Utf8.decode(textL)
+                // textL = decodeURIComponent(textL.split("").map(function(ch) { return "%"+ch.charCodeAt(0).toString(16); }).join("")) // "Яндек"
+                // textL = conv(textL)
+                // ___________________________________________
                 textL = textL.replaceAll("à", "а");
                 textL = textL.replaceAll("á", "б");
                 textL = textL.replaceAll("â", "в");
@@ -841,6 +773,7 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                 textL = textL.replaceAll("Ƴ", "Жi");
                 textL = textL.replaceAll("Ҹ", "Тё");
                 textL = textL.replaceAll("׸", "Чё");
+                // _______________________________________
 
                 // textL = textL.replaceAll("ͳ", "Нi");
                 // textL = textL.replaceAll("", "Нi");
@@ -941,35 +874,6 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
             if ($el.substring($el.length, $el.length + 1) != `\n`) {
                 $el = $el + `\n`;
             }
-
-            // for (i = 0; i < $el.length; i++) {
-            //     if ($el.substring(i, i + 3) === `\n \n`) {
-            //         posAbzac.push(i);
-            //         i = i + 1;
-            //     }
-            //     if ($el.substring(i, i + 1) === `\n`) {
-            //         posBreakLine.push(i);
-            //         if (posBreakLine.length > 1) {
-            //             if (
-            //                 posBreakLine[posBreakLine.length - 1] -
-            //                 posBreakLine[posBreakLine.length - 2] >
-            //                 28
-            //             ) {
-            //                 $el = razdelit(
-            //                     $el,
-            //                     posBreakLine[posBreakLine.length - 2],
-            //                     posBreakLine[posBreakLine.length - 1]
-            //                 );
-            //                 i = 0;
-            //             }
-            //         } else if (posBreakLine.length === 1) {
-            //             if (posBreakLine[0] > 28) {
-            //                 $el = razdelit($el, 0, posBreakLine[0]);
-            //                 i = 0;
-            //             }
-            //         }
-            //     }
-            // }
 
             posBreakLine = [];
             posAbzac = [];
@@ -1343,15 +1247,6 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
             // });
 
 
-
-
-
-            
-
-
-
-
-
             // console.log($el)
         });
 
@@ -1374,9 +1269,9 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                     "textLyr"
                 ).textContent = document.getElementById("textSite").textContent;
             });
-    </script>
-
-    <script>
+</script>
+    
+<script>
         //let textP //= document.getElementById('textLyr').textContent
 
         function getSlogi(textP) {
@@ -1488,22 +1383,26 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
 
             return toText;
         }
-    </script>
-
-    <script>
+</script>
+    
+<script>
         
         wwr_start();
-        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/text", 1000);
-        wwr_req_recur("TRANSPORT", 20);
-        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/regionName", 3000);
+        
+        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/regionName", 2050);
         wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/allLyric", 2000);
+        wwr_req_recur("GET/PROJEXTSTATE/2ZS_Lyrics/text", 1000);
+        wwr_req_recur("TRANSPORT", 10);
+        
+        
+        allLyric ='no'
         // slogiFinRezerv = []
         // tText=''
         // let slogiFin = [];
         var regionName = "noSet";
         var text = "";
-        var div = document.getElementById("text");
-        var initial_text = div.innerHTML;
+        // var div = document.getElementById("text");
+        // var initial_text = div.innerHTML;
         // console.log(initial_text)
         var playstate_elm = document.getElementById("playstate");
         var colors = [
@@ -1599,6 +1498,7 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
             // console.log(results)
             // let lyric = []; // раньше обнулял ... увеличил интервал запраса текста и он стал мигать. Убрал очищение- перестал исчезать
             // let txtToScr = "";
+            // allLyric = 'nooooo'
             let slogiFin = [];
             var ar = results.split("\n");
             var x;
@@ -1608,7 +1508,10 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                     tok.length > 1 &&
                     tok[1] === "2ZS_Lyrics" &&
                     tok[2] === "notes" &&
-                    (text !== tok[3] || lastDetectMultine !== detectMultiLine)
+                    (text !== tok[3])
+                    //  || lastDetectMultine !== detectMultiLine)
+
+
                 ) {
                     TextFromNotes = tok[3];
                     console.log(TextFromNotes);
@@ -1622,17 +1525,31 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                     wwr_req("SET/EXTSTATEPERSIST/" + section + "/" + key + "/" + value);
                     // wwr_req_cancel("SET/EXTSTATEPERSIST/"+section+"/"+key+"/"+value);
                 }
+
+                if (
+                    tok.length > 1 && 
+                    tok[1] === "2ZS_Lyrics" && 
+                    tok[2] === "regionName" && 
+                    (tok[3] !== regionName)
+                )
+                    //  || lastDetectMultine !== detectMultiLine)
+                 {
+                    regionName = tok[3];
+                    document.getElementById("fileName").textContent = regionName  
+            }
+
                 if (
                     tok.length > 1 &&
                     tok[1] === "2ZS_Lyrics" &&
-                    tok[2] === "text" &&
-                    (text !== tok[3] || lastDetectMultine !== detectMultiLine)
+                    tok[2] === "text"
+                    // (tok[3] !== text)
+                    //    || lastDetectMultine !== detectMultiLine)
                 ) {
                     text = tok[3];
 
                     /*if( lastDetectMultine !== detectMultiLine ) {
-            lastDetectMultine = detectMultiLine;
-          }*/
+                       lastDetectMultine = detectMultiLine;
+                         }*/
                     if (text === "") {
                         // If no script run on use side
                         div.innerHTML = initial_text;
@@ -1651,46 +1568,22 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                             midiNotesStart,
                             getSlogi(document.getElementById("textLyr").textContent)
                         );
-                        // console.log('lyrictabla')
-                        // div.innerHTML = html.join('<br>');
-                        var settings = {
-                            alignVert: true, // if true, textFit will align vertically using css tables
-                            alignHoriz: true, // if true, textFit will set text-align: center
-                            multiLine: detectMultiLine, // if true, textFit will not set white-space: no-wrap
-                            detectMultiLine: detectMultiLine, // disable to turn off automatic multi-line sensing
-                            minFontSize: 10,
-                            maxFontSize: 80,
-                            //reProcess: true, // if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
-                            //alignVertWithFlexbox: true, // if true, textFit will use flexbox for vertical alignment
-                        };
-                        textFit(div, settings); // Known issue, if browser have been resized, display need to be refreshed.
+
+                       
                     }
                 }
-                if (
-                    tok.length > 1 &&
-                    tok[1] === "2ZS_Lyrics" &&
-                    tok[2] === "regionName" &&
-                    (regionName !== tok[3] || lastDetectMultine !== detectMultiLine)
-                ) {
-                    regionName = tok[3];
-                    document.getElementById("fileName").textContent = regionName
 
                 
-            }
-
-                
-
-
-
 
                 if (
                     tok.length > 1 &&
                     tok[1] === "2ZS_Lyrics" &&
                     tok[2] === "allLyric" &&
-                    (regionName !== tok[3] || lastDetectMultine !== detectMultiLine)
+                    (tok[3] !== allLyric  )
+                    //  || lastDetectMultine !== detectMultiLine)
                 ) {
                     allLyric = tok[3];
-                    // console.log(allLyric);
+                    console.log(allLyric);
                 }
 
                 if (tok.length > 1 && 
@@ -1759,7 +1652,6 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                         }
                         
                     }
-                    // tText = tText.slice(0,-1)
 
                     tText.lastIndexOf("\n")
 
@@ -1772,18 +1664,18 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                    if (last > tText.lastIndexOf("\n")) {
                     last = last
                    } else {
-                    last = tText.lastIndexOf("\n") + 1
+                    last = tText.lastIndexOf("\n")
                    }
 
 
 
                     document.getElementById("lyrics").innerHTML = 
-                        tText.slice (0, last) + 
+                        tText.slice (0, last+1) + 
                             '<mark>' +
-                        tText.slice (last, tText.length) + 
+                        tText.slice (last+1, tText.length) + 
                             '</mark>' +
                     ttt.slice(tText.length, ttt.length) ;
-                    console.log(tText.lastIndexOf("-", ' '));
+                    // console.log(tText.lastIndexOf("-", ' '));
 
 
 
@@ -1798,6 +1690,8 @@ document.getElementById("read-html").addEventListener("click", async clickEvent 
                         // console.log(preview.length);
                         // previewSl = previewSl.filter(n => n) 
                         previewStr = previewStr.filter(n => n)
+                        // previewStr = previewStr.filter('-' ,'')
+
                         // document.getElementById("prev").textContent = previewSl[previewSl.length - 1] 
                         document.getElementById("prev").textContent = previewStr[previewStr.length - 1]
                         // console.log(tText.split('-'));
