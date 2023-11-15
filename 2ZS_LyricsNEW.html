@@ -1028,7 +1028,8 @@ var Utf8 = {
             }
 
             $el = $el.replace(new RegExp(`[${charsDelete}]`, "g"), "");
-
+            $el = $el.replaceAll(" ", " ");
+            
             $el = $el.replaceAll(" - ", " ");
             // $el = $el.replaceAll(`-\n`, `\n`);
             $el = $el.replaceAll(" – ", " ");
